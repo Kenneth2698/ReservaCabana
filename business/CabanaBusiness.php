@@ -42,12 +42,7 @@ class CabanaBusiness
 
     }
 
-    public function 
-
-
-
-
-}
+  
 
 
 ?>
