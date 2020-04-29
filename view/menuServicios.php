@@ -69,8 +69,8 @@
     </ul>
     <h2 class="title">CRUD DE TEMPORADA</h2>
     <ul>
-    <li><a href="#">Crear TEMPORADA</a></li>
-    <li><a href="#">Ver TEMPORADA</a></li>
+    <li><a href="?controlador=Temporada&accion=cargarCrearTemporada">Crear TEMPORADA</a></li>
+    <li><a href="?controlador=Temporada&accion=cargarVerTemporadas">Ver TEMPORADAS</a></li>
     </ul>
 </div>
 
