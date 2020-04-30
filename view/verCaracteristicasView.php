@@ -35,7 +35,7 @@
 
 
                         <td> <?php echo $datos['tbcabanacaracteristicaid'] ?></td>
-                        <td> <?php echo $datos['cabanaid'] ?></td>
+                        <td> <?php echo $datos['cabananombre'] ?></td>
                         <?php foreach ($valores as $v) {  ?>
                             <td contenteditable><?php echo $v ?></td>
                         <?php } ?>

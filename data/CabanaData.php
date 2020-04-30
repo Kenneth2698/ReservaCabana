@@ -76,7 +76,16 @@ class CabanaData
     public function obtenerCaracteristicas()
     {
 
-        $consulta = $this->db->prepare('select * from tbcabanacaracteristica');
+        $consulta = $this->db->prepare('SELECT tbcabanacaracteristicaid,
+                                                c.cabananombre,
+                                                cabanacaracteristicacodigo,
+                                                cabanacaracteristicacriterio,
+                                                cabanacaracteristicavalor,
+                                                cabanacaracteristicaprioridad
+                                            FROM tbcabanacaracteristica cc
+                                            join tbcabana c
+                                            on cc.cabanaid = c.cabanaid
+                                            ');
 
 
         $consulta->execute();
