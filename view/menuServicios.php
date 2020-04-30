@@ -58,8 +58,8 @@
 
     <h2 class="title">CRUD DE TELEFONO</h2>
     <ul>
-    <li><a href="#">Crear TELEFONO</a></li>
-    <li><a href="#">Ver TELEFONO</a></li>
+    <li><a href="?controlador=Cliente&accion=listarClientes">Crear TELEFONO</a></li>
+    <li><a href="?controlador=Cliente&accion=cargarVerTelefonos">Ver TELEFONO</a></li>
     </ul>
 
     <h2 class="title">CRUD DE CORREO</h2>

@@ -48,7 +48,7 @@ class ClienteData
         $consulta->closeCursor();
     }
 
-    public function actualizarServicio($cliente){
+    public function actualizarCliente($cliente){
 
         $consulta = $this->db->prepare("
         UPDATE tbcliente 
@@ -59,5 +59,32 @@ class ClienteData
         $consulta->execute();
         $consulta->closeCursor();
 
+    }
+
+    public function insertarTelefonoCliente($string_criterios,$string_valores,$clienteid){
+        $consulta = $this->db->prepare("
+            INSERT INTO tbtelefono (telefonocriterio,telefonovalor,telefonoclienteid) 
+            
+            VALUES ( '" . $string_criterios . "','" . $string_valores . "','" . $clienteid . "')");
+
+
+        $consulta->execute();
+        $consulta->closeCursor();
+    }
+
+    public function obtenerTelefonos()
+    {
+
+        $consulta = $this->db->prepare('
+                                        SELECT telefonoid,telefonocriterio,telefonovalor,telefonoclienteid
+                                        FROM tbtelefono');
+
+
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->CloseCursor();
+
+
+        return $resultado;
     }
 }
