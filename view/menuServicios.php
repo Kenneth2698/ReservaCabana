@@ -52,8 +52,8 @@
 
     <h2 class="title">CRUD DE CLIENTE</h2>
     <ul>
-    <li><a href="#">Crear CLIENTE</a></li>
-    <li><a href="#">Ver CLIENTE</a></li>
+    <li><a href="?controlador=Cliente&accion=cargarCrearCliente">Crear CLIENTE</a></li>
+    <li><a href="?controlador=Cliente&accion=cargarVerCliente">Ver CLIENTE</a></li>
     </ul>
 
     <h2 class="title">CRUD DE TELEFONO</h2>
