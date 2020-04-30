@@ -10,50 +10,42 @@
     <h2 class="title">Lista de Telefonos</h2>
     <div class="container">
         <table>
-
+         
         <?php
         $object = json_decode($vars,true);
         foreach($object as $telefono){  ?>
-            <tr>
-                <th>ID:</th>
-                <td><?php echo $telefono['id'] ?></td>
-                <?php 
+        <th>ID </th>
+        <th>ID Cliente </th>
+        <tr>
+            <td><?php echo $telefono['id'] ?></td>
+            <td><?php echo $telefono['clienteid'] ?></td>
+        </tr>
+            <?php 
                 foreach($telefono['criterios'] as $criterios){?>
-                    <th>Criterio:</th>
-                    <td><?php echo $criterios ?></td>
+
+                    <th><?php echo $criterios ?></th>
+                    
                 <?php 
                 }?>
-
-                <?php 
+        </tr>
+        <tr>
+        <?php 
                 foreach($telefono['valores'] as $valores){?>
-                    <th>Valor:</th>
                     <td><?php echo $valores ?></td>
                 <?php 
                 }?>
-                <th>ID Cliente:</th>
-                <td><?php echo $telefono['clienteid'] ?></td>  
-
-                <form method="POST" action="?controlador=Servicio&accion=cargarActualizarServicio">
-
-                    <input type="hidden" value="<?php echo $telefono['id']?>" id="telefonoid" name="telefonoid">
-                    <input type="hidden" value="<?php echo $telefono['criterio']?>" id="telefonocriterio" name="telefonocriterio">
-                    <input type="hidden" value="<?php echo $telefono['valor']?>" id="telefonovalor" name="telefonovalor">
+                <form method="POST" action="?controlador=Cliente&accion=cargarActualizarTelefono">
+                <input type="hidden" value="<?php echo $telefono['clienteid']?>" id="telefonoclienteid" name="telefonoclienteid">
+                    <td><button type="submit">Actualizar</button></td>
+                </form>
+                <form method="POST" action="?controlador=Cliente&accion=cargarEliminarTelefono">
                     <input type="hidden" value="<?php echo $telefono['clienteid']?>" id="telefonoclienteid" name="telefonoclienteid">
-
-                    <td>  <button type="submit">Actualizar</button></td>
-                </form>
-                
-                <form method="POST" action="?controlador=Servicio&accion=eliminarServicio">
-
-                    <input type="hidden" value="<?php echo $telefono['id']?>" id="telefonoid" name="telefonoid">
-
-                    <td>  <button type="submit">Eliminar</button></td>
+                    <td><button type="submit">Eliminar</button></td>
                 </form>
 
-            </tr>
+        </tr>
         <?php
             }?>
-        
         </table>
         
 

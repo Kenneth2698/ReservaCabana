@@ -179,6 +179,12 @@ class ClienteBusiness{
         $this->view->show("verTelefono.php",$myObj);
     }
 
+    public function cargarEliminarTelefono(){
+        echo $_POST['telefonoclienteid'];
+    }
+    public function cargarActualizarTelefono(){
+        echo $_POST['telefonoclienteid'];
+    }
 }
 
 ?>
