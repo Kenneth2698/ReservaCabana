@@ -21,10 +21,10 @@
 
     <h2 class="title">CRUD DE CARACTERISTICAS</h2>
     <ul>
-    <li><a href="#">Crear CARACTERISTICAS</a></li>
-    <li><a href="#">Ver CARACTERISTICAS</a></li>
+    <li><a href="?controlador=Cabana&accion=cargarCrearCabanaCaracteristicas">Crear CARACTERISTICAS</a></li>
+    <li><a href="?controlador=Cabana&accion=cargarVerCaracteristicas">Ver CARACTERISTICAS</a></li>
     </ul>
-
+    
     
     <h2 class="title">CRUD DE IMAGEN</h2>
     <ul>

@@ -31,9 +31,9 @@
                             <td> <button type="submit">Actualizar</button></td>
                         </form>
 
-                        <form method="POST" action="?controlador=Servicio&accion=eliminarCabana">
+                        <form method="POST" action="?controlador=Cabana&accion=eliminarCabana">
 
-                            <input type="hidden" value="<?php echo $servicio['cabanaid'] ?>" id="cabanaid" name="cabanaid">
+                            <input type="hidden" value="<?php echo $cabana['cabanaid'] ?>" id="cabanaid" name="cabanaid">
 
                             <td> <button type="submit">Eliminar</button></td>
                         </form>
