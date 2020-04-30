@@ -180,4 +180,38 @@ class CabanaBusiness
      
         $this->view->show("verCaracteristicasView.php", $resultado);  
     }
+
+    public function eliminarCaracteristica(){
+        $caracteristicaid = $_POST['caracteristicaid'];
+        
+        $cabanaData = new CabanaData();
+
+
+        $resultado = $cabanaData->eliminarCaracteristicas($caracteristicaid);
+
+
+        $resultado = $cabanaData->obtenerCaracteristicas();
+        
+     
+        $this->view->show("verCaracteristicasView.php", $resultado);  
+
+    }
+
+    public function actualizarCriterioValor(){
+        $criterio = $_POST['criterio'];
+        $valor = $_POST['valor'];
+        $caracteristicaid = $_POST['caracteristicaid'];
+
+
+        $cabanaData = new CabanaData();
+
+
+        $cabanaData->actualizarCriterioValor($criterio,$valor,$caracteristicaid);
+
+        $resultado = $cabanaData->obtenerCaracteristicas();
+        
+     
+        $this->view->show("verCaracteristicasView.php", $resultado);  
+    }
+
 };

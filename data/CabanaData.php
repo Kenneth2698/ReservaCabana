@@ -87,5 +87,26 @@ class CabanaData
         return $resultado;
     }
 
+    public function eliminarCaracteristicas($caracteristicaid){
+
+        $consulta = $this->db->prepare("DELETE FROM tbcabanacaracteristica WHERE tbcabanacaracteristicaid = $caracteristicaid");
+
+        $consulta->execute();
+        $consulta->CloseCursor();
+
+    }
+
+    public function actualizarCriterioValor($criterio,$valor,$caracteristicaid){
+        $consulta = $this->db->prepare("
+        UPDATE tbcabanacaracteristica 
+        SET cabanacaracteristicacriterio='" . $criterio . "' , cabanacaracteristicavalor ='" . $valor . "'
+         WHERE tbcabanacaracteristicaid='" . $caracteristicaid . "';");
+
+        $consulta->execute();
+        
+        $consulta->CloseCursor();
+    }
+
+    
     
 }
