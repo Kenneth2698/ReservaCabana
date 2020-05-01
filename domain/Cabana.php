@@ -4,11 +4,13 @@ class Cabana {
 
     private $id;
     private $nombre;
+    private $propietario;
 
 
-    function Cabana($id,$nombre) {
+    function Cabana($id,$nombre,$propietario) {
         $this->id = $id;
         $this->nombre = $nombre;
+        $this->propietario = $propietario;
     }
 
     function getNombre() {
@@ -25,5 +27,13 @@ class Cabana {
 
     public function setId($id) {
         $this->id = $id;
+    }
+
+    function getPropietario() {
+        return $this->propietario;
+    }
+
+    public function setPropietario($propietario) {
+        $this->propietario = $propietario;
     }
 }

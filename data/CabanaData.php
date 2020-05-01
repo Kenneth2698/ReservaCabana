@@ -16,8 +16,8 @@ class CabanaData
     public function insertarCabana($cabana)
     {
 
-        $consulta = $this->db->prepare("
-            INSERT INTO tbcabana (cabananombre) VALUES ( '" . $cabana->getNombre() . "');");
+        $consulta = $this->db->prepare("INSERT INTO tbcabana (cabananombre,propietarioid) VALUES ( '" . $cabana->getNombre() . "',".$cabana->getPropietario().");");
+
 
         $consulta->execute();
         $consulta->CloseCursor();
@@ -38,8 +38,29 @@ class CabanaData
         return $resultado;
     }
 
+    public function obtenerPropietarioInfo($propietarioid){
+        $consulta = $this->db->prepare("select propietarioid,propietarionombre,propietarionumerocuentabancaria,propietariocorreo,propietariotelefono from tbpropietario where propietarioid = ".$propietarioid." ;");
 
 
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->CloseCursor();
+
+
+        return $resultado;
+    }
+
+    public function obtenerDireccionInfo($cabanaid){
+        $consulta = $this->db->prepare("select direccionid,direccionprovincia,direccioncanton,direcciondistrito,direccionotrasenas from tbdireccion where direccioncabanaid = ".$cabanaid." ;");
+
+
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->CloseCursor();
+
+
+        return $resultado;
+    }
     public function actualizarCabana($cabana)
     {
 
@@ -61,7 +82,19 @@ class CabanaData
         $consulta->execute();
         $consulta->CloseCursor();
     }
+    public function eliminarPropietario($propietarioid){
+        $consulta = $this->db->prepare("DELETE FROM tbpropietario WHERE propietarioid = $propietarioid");
 
+        $consulta->execute();
+        $consulta->CloseCursor();
+    }
+
+    public function eliminarDireccion($direccionid){
+        $consulta = $this->db->prepare("DELETE FROM tbdireccion WHERE direccionid = $direccionid");
+
+        $consulta->execute();
+        $consulta->CloseCursor();
+    }
 
     public function insertarCabanaCaracteristica($cabanaid, $codigo, $criterio, $valor, $prioridad)
     {
@@ -187,6 +220,54 @@ class CabanaData
     {
 
         $consulta = $this->db->prepare("SELECT caracteristicaimagenid,caracteristicaimagennombre,caracteristicaimagenruta from tbcaracteristicaimagen");
+
+
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->CloseCursor();
+
+
+        return $resultado;
+    }
+
+    public function insertarDireccion($provincia, $canton, $distrito, $senas, $cabanaid)
+    {
+        $consulta = $this->db->prepare("INSERT INTO tbdireccion (direccionprovincia,direccioncanton,direcciondistrito,direccionotrasenas,direccioncabanaid) VALUES ( '" . $provincia . "','" . $canton . "','" . $distrito . "','" . $senas . "','" . $cabanaid . "');");
+
+        $consulta->execute();
+        $consulta->CloseCursor();
+
+    }
+
+    public function insertarPropietario($nombre,$cuenta,$correo,$telefono){
+        $consulta = $this->db->prepare("INSERT INTO tbpropietario (propietarionombre,propietarionumerocuentabancaria,propietariocorreo,propietariotelefono) VALUES ( '" . $nombre . "','" . $cuenta . "','" . $correo . "','" . $telefono . "');");
+
+        $consulta->execute();
+        $consulta->CloseCursor();
+    }
+
+    public function actualizarPropietario($nombre, $cuenta, $correo, $telefono,$id){
+        $consulta = $this->db->prepare("
+        UPDATE tbpropietario 
+        SET propietarionombre='" . $nombre . "' , propietarionumerocuentabancaria ='" . $cuenta . "', propietariocorreo = '".$correo."', propietariotelefono = '".$telefono."'
+         WHERE propietarioid='" . $id . "';");
+
+        $consulta->execute();
+        $consulta->CloseCursor();
+    }
+
+    public function actualizarDireccion($provincia, $canton, $distrito, $senas,$id){
+        $consulta = $this->db->prepare("
+        UPDATE tbdireccion 
+        SET direccionprovincia='" . $provincia . "' , direccioncanton ='" . $canton . "', direcciondistrito = '".$distrito."', direccionotrasenas = '".$senas."'
+         WHERE direccionid='" . $id . "';");
+
+        $consulta->execute();
+        $consulta->CloseCursor();
+    }
+
+    public function obtenerPropietarios(){
+        $consulta = $this->db->prepare('select propietarioid,propietarionombre from tbpropietario');
 
 
         $consulta->execute();

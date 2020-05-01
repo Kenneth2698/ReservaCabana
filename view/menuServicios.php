@@ -34,14 +34,14 @@
 
     <h2 class="title">CRUD DE DIRECCION</h2>
     <ul>
-    <li><a href="#">Crear DIRECCION</a></li>
-    <li><a href="#">Ver DIRECCION</a></li>
+    <li><a href="?controlador=Cabana&accion=cargarCrearDireccion">Crear DIRECCION</a></li>
+    <li><a href="?controlador=Cabana&accion=cargarVerDireccion">Ver DIRECCION</a></li>
     </ul>
 
     <h2 class="title">CRUD DE PROPIETARIO</h2>
     <ul>
-    <li><a href="#">Crear PROPIETARIO</a></li>
-    <li><a href="#">Ver PROPIETARIO</a></li>
+    <li><a href="?controlador=Cabana&accion=cargarCrearPropietario">Crear PROPIETARIO</a></li>
+    <li><a href="?controlador=Cabana&accion=cargarActualizarEliminarPropietario">Ver PROPIETARIO</a></li>
     </ul>
 
     <h2 class="title">CRUD DE PRECIO</h2>

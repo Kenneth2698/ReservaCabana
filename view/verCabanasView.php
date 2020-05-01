@@ -7,7 +7,7 @@
 
 <body>
     <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
-        <h2 class="title">Lista de Servicios</h2>
+        <h2 class="title">Lista de cabañas</h2>
         <div class="container">
             <table>
                 <tr>
@@ -25,6 +25,7 @@
 
                         <form method="POST" action="?controlador=Cabana&accion=cargarActualizarCabana">
 
+                        <input type="hidden" value="<?php echo $cabana['propietarioid'] ?>" id="propietarioid" name="propietarioid">
                             <input type="hidden" value="<?php echo $cabana['cabanaid'] ?>" id="cabanaid" name="cabanaid">
                             <input type="hidden" value="<?php echo $cabana['cabananombre'] ?>" id="cabananombre" name="cabananombre">
 
