@@ -176,14 +176,18 @@ class CabanaBusiness
 
 
         $resultado = $cabanaData->obtenerCaracteristicas();
-        
-     
-        $this->view->show("verCaracteristicasView.php", $resultado);  
+
+
+        $this->view->show("verCaracteristicasView.php", $resultado);
     }
 
-    public function eliminarCaracteristica(){
+
+
+
+    public function eliminarCaracteristica()
+    {
         $caracteristicaid = $_POST['caracteristicaid'];
-        
+
         $cabanaData = new CabanaData();
 
 
@@ -191,13 +195,13 @@ class CabanaBusiness
 
 
         $resultado = $cabanaData->obtenerCaracteristicas();
-        
-     
-        $this->view->show("verCaracteristicasView.php", $resultado);  
 
+
+        $this->view->show("verCaracteristicasView.php", $resultado);
     }
 
-    public function actualizarCriterioValor(){
+    public function actualizarCriterioValor()
+    {
         $criterio = $_POST['criterio'];
         $valor = $_POST['valor'];
         $caracteristicaid = $_POST['caracteristicaid'];
@@ -206,12 +210,100 @@ class CabanaBusiness
         $cabanaData = new CabanaData();
 
 
-        $cabanaData->actualizarCriterioValor($criterio,$valor,$caracteristicaid);
+        $cabanaData->actualizarCriterioValor($criterio, $valor, $caracteristicaid);
 
         $resultado = $cabanaData->obtenerCaracteristicas();
-        
-     
-        $this->view->show("verCaracteristicasView.php", $resultado);  
+
+
+        $this->view->show("verCaracteristicasView.php", $resultado);
     }
 
+
+
+    public function cargarCrearCaracteristicaImagen()
+    {
+
+
+        $cabanaData = new CabanaData();
+
+        $resultado['cabanas'] = $cabanaData->obtenerCabanasCaracteristicas();
+
+        $this->view->show("verCaracteristicaImagenView.php", $resultado);
+    }
+
+    public function seleccionarCabana()
+    {
+
+
+        $caracteristicaid = $_POST['caracteristicaid'];
+
+        $cabanaData = new CabanaData();
+
+        $resultado = $cabanaData->obtenerCaracteristicasConId($caracteristicaid);
+
+        $this->view->show("verCaracteristicaImageConIdnView.php", $resultado);
+    }
+
+    public function insertarCaracteristicaImagen()
+    {
+        $contador = $_POST['i'];
+        $codigos = $_POST['codigo'];
+
+        $nombres = "";
+        $rutas = "";
+
+        for ($i = 0; $i < $contador; $i++) {
+            $nombres = $nombres . ',' . $_POST['nombre' . $i];
+            $rutas = $rutas . ',' . $_POST['ruta' . $i];
+        }
+        $cabanaData = new CabanaData();
+
+        $cabanaData->insertarCaracteristicaImagen($codigos, ltrim($nombres, ','), ltrim($rutas, ','));
+
+        $resultado['cabanas'] = $cabanaData->obtenerCabanasCaracteristicas();
+
+        $this->view->show("verCaracteristicaImagenView.php", $resultado);
+    }
+
+    public function cargarVerCaracteristicaImagen()
+    {
+
+
+        $cabanaData = new CabanaData();
+
+        $resultado = $cabanaData->obtenerImagenes();
+
+        $this->view->show("verImagenes.php", $resultado);
+    }
+
+
+    public function actualizarImagen()
+    {
+        $nombres = $_POST['nombres'];
+        $rutas = $_POST['rutas'];
+        $imagenid = $_POST['imagenId'];
+
+        echo $nombres.''.$rutas.''.$imagenid;
+        
+        $cabanaData = new CabanaData();
+
+
+        $cabanaData->actualizarImagen($nombres, $rutas, $imagenid);
+
+       
+    }
+
+    public function eliminarImagen()
+    {
+        $imagenid = $_POST['imagenid'];
+
+        $cabanaData = new CabanaData();
+
+
+        $cabanaData->eliminarImagen($imagenid);
+
+        $resultado = $cabanaData->obtenerImagenes();
+
+        $this->view->show("verImagenes.php", $resultado);
+    }
 };

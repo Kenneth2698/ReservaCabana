@@ -49,7 +49,7 @@ class CabanaData
         WHERE cabanaid='" . $cabana->getId() . "';");
 
         $consulta->execute();
-        
+
         $consulta->CloseCursor();
     }
 
@@ -63,10 +63,10 @@ class CabanaData
     }
 
 
-    public function insertarCabanaCaracteristica($cabanaid,$codigo,$criterio,$valor,$prioridad)
+    public function insertarCabanaCaracteristica($cabanaid, $codigo, $criterio, $valor, $prioridad)
     {
 
-        $consulta = $this->db->prepare("INSERT INTO tbcabanacaracteristica (cabanaid,cabanacaracteristicacodigo,cabanacaracteristicacriterio,cabanacaracteristicavalor,cabanacaracteristicaprioridad) VALUES ( '" . $cabanaid. "','".$codigo."','".$criterio."','".$valor."','".$prioridad."');");
+        $consulta = $this->db->prepare("INSERT INTO tbcabanacaracteristica (cabanaid,cabanacaracteristicacodigo,cabanacaracteristicacriterio,cabanacaracteristicavalor,cabanacaracteristicaprioridad) VALUES ( '" . $cabanaid . "','" . $codigo . "','" . $criterio . "','" . $valor . "','" . $prioridad . "');");
 
         $consulta->execute();
         $consulta->CloseCursor();
@@ -96,26 +96,104 @@ class CabanaData
         return $resultado;
     }
 
-    public function eliminarCaracteristicas($caracteristicaid){
+    public function eliminarCaracteristicas($caracteristicaid)
+    {
 
         $consulta = $this->db->prepare("DELETE FROM tbcabanacaracteristica WHERE tbcabanacaracteristicaid = $caracteristicaid");
 
         $consulta->execute();
         $consulta->CloseCursor();
-
     }
 
-    public function actualizarCriterioValor($criterio,$valor,$caracteristicaid){
+    public function eliminarImagen($imagenid)
+    {
+        $consulta = $this->db->prepare("DELETE FROM tbcaracteristicaimagen WHERE caracteristicaimagenid = $imagenid");
+
+        $consulta->execute();
+        $consulta->CloseCursor();
+    }
+    public function actualizarCriterioValor($criterio, $valor, $caracteristicaid)
+    {
         $consulta = $this->db->prepare("
         UPDATE tbcabanacaracteristica 
         SET cabanacaracteristicacriterio='" . $criterio . "' , cabanacaracteristicavalor ='" . $valor . "'
          WHERE tbcabanacaracteristicaid='" . $caracteristicaid . "';");
 
         $consulta->execute();
-        
+
         $consulta->CloseCursor();
     }
 
-    
-    
+    public function actualizarImagen($nombres, $rutas, $imagenid)
+    {
+        $consulta = $this->db->prepare("
+        UPDATE tbcaracteristicaimagen 
+        SET caracteristicaimagennombre='" . $nombres . "' , caracteristicaimagenruta ='" . $rutas . "'
+         WHERE caracteristicaimagenid= " . $imagenid . ";");
+
+        $consulta->execute();
+
+        $consulta->CloseCursor();
+    }
+
+    public function obtenerCabanasCaracteristicas()
+    {
+        $consulta = $this->db->prepare('SELECT tbcabanacaracteristicaid,
+                                                c.cabananombre
+                                            FROM tbcabanacaracteristica cc
+                                            join tbcabana c
+                                            on cc.cabanaid = c.cabanaid');
+
+
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->CloseCursor();
+
+
+        return $resultado;
+    }
+
+    public function obtenerCaracteristicasConId($caracteristicaid)
+    {
+
+        $consulta = $this->db->prepare("   SELECT tbcabanacaracteristicaid,
+                                                c.cabananombre,
+                                                cabanacaracteristicacodigo,
+                                                cabanacaracteristicacriterio,
+                                                cabanacaracteristicavalor
+                                            FROM tbcabanacaracteristica cc
+                                            join tbcabana c
+                                            on cc.cabanaid = c.cabanaid
+                                            where tbcabanacaracteristicaid = " . $caracteristicaid . ";");
+
+
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->CloseCursor();
+
+
+        return $resultado;
+    }
+
+    public function insertarCaracteristicaImagen($codigos, $nombres, $rutas)
+    {
+        $consulta = $this->db->prepare("INSERT INTO tbcaracteristicaimagen (caracteristicaimagencodigo,caracteristicaimagennombre,caracteristicaimagenruta) VALUES ( '" . $codigos . "','" . $nombres . "','" . $rutas . "');");
+
+        $consulta->execute();
+        $consulta->CloseCursor();
+    }
+
+    public function obtenerImagenes()
+    {
+
+        $consulta = $this->db->prepare("SELECT caracteristicaimagenid,caracteristicaimagennombre,caracteristicaimagenruta from tbcaracteristicaimagen");
+
+
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->CloseCursor();
+
+
+        return $resultado;
+    }
 }

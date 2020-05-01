@@ -28,8 +28,8 @@
     
     <h2 class="title">CRUD DE IMAGEN</h2>
     <ul>
-    <li><a href="#">Crear IMAGEN</a></li>
-    <li><a href="#">Ver IMAGEN</a></li>
+    <li><a href="?controlador=Cabana&accion=cargarCrearCaracteristicaImagen">Crear IMAGEN</a></li>
+    <li><a href="?controlador=Cabana&accion=cargarVerCaracteristicaImagen">Ver IMAGEN</a></li>
     </ul>
 
     <h2 class="title">CRUD DE DIRECCION</h2>

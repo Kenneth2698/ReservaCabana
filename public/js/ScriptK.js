@@ -39,20 +39,20 @@ function obtenerValoresDeTabla(idtabla) {
 
     $('#' + idtabla + ' td').each(function (index) {
         if (index > 1) {
-            valores += $(this).text()+ ',';
+            valores += $(this).text() + ',';
         } else if (index == 0) {
             caracteristicaId = $(this).text();
         }
     });
 
 
-    criterios = criterios.substring(0,criterios.length-1);
-    valores = valores.substring(0,valores.length-1);
+    criterios = criterios.substring(0, criterios.length - 1);
+    valores = valores.substring(0, valores.length - 1);
 
     var parametros = {
         'criterio': criterios,
         'valor': valores,
-        'caracteristicaid':caracteristicaId
+        'caracteristicaid': caracteristicaId
     };
 
     $.ajax(
@@ -65,7 +65,55 @@ function obtenerValoresDeTabla(idtabla) {
             },
             success: function () {
 
-               // alert("response");
+                // alert("response");
+            },
+
+        }
+    );
+}
+
+function obtenerValoresDeTablaImagenes(idtabla) {
+
+    let nombres = "";
+    var rutas = "";
+    var imagenId = 0;
+
+    $('#' + idtabla + ' th').each(function (index) {
+        if (index > 0) {
+            nombres += $(this).text() + ',';
+        }
+
+    });
+
+    $('#' + idtabla + ' td').each(function (index) {
+        if (index > 0) {
+            rutas += $(this).text() + ',';
+        } else if (index == 0) {
+            imagenId = $(this).text();
+        }
+    });
+
+
+    nombres = nombres.substring(0, nombres.length - 1);
+    rutas = rutas.substring(0, rutas.length - 1);
+
+    var parametros = {
+        'nombres': nombres,
+        'rutas': rutas,
+        'imagenId': imagenId
+    };
+
+    $.ajax(
+        {
+            data: parametros,
+            url: '?controlador=Cabana&accion=actualizarImagen',
+            type: 'post',
+            beforeSend: function () {
+
+            },
+            success: function () {
+
+                // alert("response");
             },
 
         }
