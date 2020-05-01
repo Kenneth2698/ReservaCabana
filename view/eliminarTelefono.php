@@ -7,23 +7,23 @@
 
 <body>
 <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
-    <h2 class="title">Actualizar Telefono</h2>
+    <h2 class="title">Eliminar Telefono</h2>
     <div class="container">
-        <form method="POST"  action="?controlador=Cliente&accion=actualizarTelefono">
+        <form method="POST"  action="?controlador=Cliente&accion=eliminarTelefono">
+            <label for="select_clientes">Elija un numero a eliminar</label>
+            <br>
+            <select name="select_telefono" id="select_telefono">
             <?php
-                $i = 0;
-                foreach ($vars['telefonos_cliente'] as $row) { ?>  
-                    <label><?php echo $vars['tipos'][$i] ?></label> 
-                    <input type="number" id="<?php echo 'valores'.$i?>" name="<?php echo 'valores'.$i?>" value="<?php echo $row ?>"></input>  
-                                             
-                <?php
+                            $i = 0;
+                            foreach ($vars['telefonos_cliente'] as $row) { ?>   
+                                <option value="<?php echo $i ?>"><?php echo $row ?></option>                              
+                            <?php
 
-                $i++; } 
-                ?>
-                <input type="text" hidden value="<?php echo $i?>" id="contador" name="contador"> 
+                           $i++; } ?>
+            </select>
             <br>
             <br>
-            <button type="submit">Actualizar</button>
+            <button type="submit">Seleccionar</button>
         </form>
     </div>
 </div>

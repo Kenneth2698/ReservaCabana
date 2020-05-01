@@ -35,11 +35,13 @@
                 <?php 
                 }?>
                 <form method="POST" action="?controlador=Cliente&accion=cargarActualizarTelefono">
+                <input type="hidden" value="<?php echo $telefono['id']?>" id="id" name="id">
                 <input type="hidden" value="<?php echo $telefono['clienteid']?>" id="telefonoclienteid" name="telefonoclienteid">
                     <td><button type="submit">Actualizar</button></td>
                 </form>
                 <form method="POST" action="?controlador=Cliente&accion=cargarEliminarTelefono">
-                    <input type="hidden" value="<?php echo $telefono['clienteid']?>" id="telefonoclienteid" name="telefonoclienteid">
+                    <input type="hidden" value="<?php echo $telefono['id']?>" id="id" name="id">
+                    <input type="hidden" value="<?php echo $telefono['clienteid']?>" id="clienteid" name="clienteid">
                     <td><button type="submit">Eliminar</button></td>
                 </form>
 

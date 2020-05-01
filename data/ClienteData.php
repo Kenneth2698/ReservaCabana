@@ -87,4 +87,62 @@ class ClienteData
 
         return $resultado;
     }
+
+    public function obtenerTelefonosEliminar($id)
+    {
+
+        $consulta = $this->db->prepare("
+                                        SELECT telefonoid,telefonocriterio,telefonovalor
+                                        FROM tbtelefono WHERE telefonoclienteid='".$id."'
+                                        ");
+
+
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->CloseCursor();
+
+
+        return $resultado;
+    }
+
+    public function obtenerTelefonosActualizar($id)
+    {
+
+        $consulta = $this->db->prepare("
+                                        SELECT telefonoid
+                                        FROM tbtelefono WHERE telefonoclienteid='".$id."'
+                                        ");
+
+
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->CloseCursor();
+
+
+        return $resultado;
+    }
+
+    public function eliminarTelefono($criterios,$valores,$telefonoid){
+        
+        $consulta = $this->db->prepare("
+        UPDATE tbtelefono 
+        SET telefonocriterio='".$criterios."',
+        telefonovalor='".$valores."'
+        WHERE telefonoid='".$telefonoid."'
+        ;");
+
+    $consulta->execute();
+    $consulta->closeCursor();
+    }
+
+    public function actualizarTelefono($telefonoid,$valores){
+        $consulta = $this->db->prepare("
+        UPDATE tbtelefono 
+        SET telefonovalor='".$valores."'
+        WHERE telefonoid='".$telefonoid."'
+        ;");
+
+    $consulta->execute();
+    $consulta->closeCursor();
+    }
 }
