@@ -72,6 +72,11 @@
     <li><a href="#">Crear TEMPORADA</a></li>
     <li><a href="#">Ver TEMPORADA</a></li>
     </ul>
+    <h2 class="title">CRUD DE RESERVA</h2>
+    <ul>
+    <li><a href="?controlador=Reserva&accion=cargarCrearReserva">Crear RESERVA</a></li>
+    <li><a href="?controlador=Reserva&accion=cargarVerReserva">Ver RESERVAS</a></li>
+    </ul>
 </div>
 
 <!-- Jquery JS-->
