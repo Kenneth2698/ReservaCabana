@@ -21,27 +21,27 @@
 
     <h2 class="title">CRUD DE CARACTERISTICAS</h2>
     <ul>
-    <li><a href="#">Crear CARACTERISTICAS</a></li>
-    <li><a href="#">Ver CARACTERISTICAS</a></li>
+    <li><a href="?controlador=Cabana&accion=cargarCrearCabanaCaracteristicas">Crear CARACTERISTICAS</a></li>
+    <li><a href="?controlador=Cabana&accion=cargarVerCaracteristicas">Ver CARACTERISTICAS</a></li>
     </ul>
-
+    
     
     <h2 class="title">CRUD DE IMAGEN</h2>
     <ul>
-    <li><a href="#">Crear IMAGEN</a></li>
-    <li><a href="#">Ver IMAGEN</a></li>
+    <li><a href="?controlador=Cabana&accion=cargarCrearCaracteristicaImagen">Crear IMAGEN</a></li>
+    <li><a href="?controlador=Cabana&accion=cargarVerCaracteristicaImagen">Ver IMAGEN</a></li>
     </ul>
 
     <h2 class="title">CRUD DE DIRECCION</h2>
     <ul>
-    <li><a href="#">Crear DIRECCION</a></li>
-    <li><a href="#">Ver DIRECCION</a></li>
+    <li><a href="?controlador=Cabana&accion=cargarCrearDireccion">Crear DIRECCION</a></li>
+    <li><a href="?controlador=Cabana&accion=cargarVerDireccion">Ver DIRECCION</a></li>
     </ul>
 
     <h2 class="title">CRUD DE PROPIETARIO</h2>
     <ul>
-    <li><a href="#">Crear PROPIETARIO</a></li>
-    <li><a href="#">Ver PROPIETARIO</a></li>
+    <li><a href="?controlador=Cabana&accion=cargarCrearPropietario">Crear PROPIETARIO</a></li>
+    <li><a href="?controlador=Cabana&accion=cargarActualizarEliminarPropietario">Ver PROPIETARIO</a></li>
     </ul>
 
     <h2 class="title">CRUD DE PRECIO</h2>

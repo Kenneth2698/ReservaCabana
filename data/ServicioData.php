@@ -22,7 +22,7 @@ class ServicioData
             
 
         $consulta->execute();
-
+        $consulta->CloseCursor();
 
     }
 
@@ -56,6 +56,7 @@ class ServicioData
         "); 
             
         $consulta->execute();
+        $consulta->CloseCursor();
    //falta actualizar la imagen 
 
     }
@@ -65,7 +66,7 @@ class ServicioData
         $consulta = $this->db->prepare("DELETE FROM tbservicio WHERE servicioid=$servicio");
 
         $consulta->execute();
-
+        $consulta->CloseCursor();
 
     }
 
