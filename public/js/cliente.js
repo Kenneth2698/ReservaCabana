@@ -21,3 +21,26 @@ function agregarCriterioTelefono(criterio,valor) {
         }
     );
 }
+
+function agregarValorCorreo(valor) {
+
+    var parametros = {
+        "valor": valor
+    };
+
+    $.ajax(
+        {
+            data: parametros,
+            url: '?controlador=Cliente&accion=ampliarListaCorreo',
+            type: 'post',
+            beforeSend: function () {
+                
+            },
+            success: function () {
+                
+
+            },
+
+        }
+    );
+}

@@ -145,4 +145,89 @@ class ClienteData
     $consulta->execute();
     $consulta->closeCursor();
     }
+
+    public function insertarCorreoCliente($string_valores,$clienteid){
+        $consulta = $this->db->prepare("
+            INSERT INTO tbcorreo (correovalor,correoclienteid) 
+            
+            VALUES ('" . $string_valores . "','" . $clienteid . "')");
+
+
+        $consulta->execute();
+        $consulta->closeCursor();
+    }
+
+    public function obtenerCorreos()
+    {
+
+        $consulta = $this->db->prepare('
+                                        SELECT correoid,correovalor,correoclienteid
+                                        FROM tbcorreo');
+
+
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->CloseCursor();
+
+
+        return $resultado;
+    }
+
+    public function obtenerCorreosEliminar($id)
+    {
+
+        $consulta = $this->db->prepare("
+                                        SELECT correoid,correovalor
+                                        FROM tbcorreo WHERE correoclienteid='".$id."'
+                                        ");
+
+
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->CloseCursor();
+
+
+        return $resultado;
+    }
+
+    public function obtenerCorreosActualizar($id)
+    {
+        print_r($id);
+        $consulta = $this->db->prepare("
+                                        SELECT correoid
+                                        FROM tbcorreo WHERE clienteid='".$id."'
+                                        ");
+
+
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->CloseCursor();
+
+
+        return $resultado;
+    }
+
+    public function eliminarCorreo($valores,$correoid){
+        
+        $consulta = $this->db->prepare("
+        UPDATE tbcorreo 
+        SET correovalor='".$valores."'
+        WHERE correoid='".$correoid."'
+        ;");
+
+    $consulta->execute();
+    $consulta->closeCursor();
+    }
+
+    public function actualizarCorreo($correoid,$valores){
+        $consulta = $this->db->prepare("
+        UPDATE tbcorreo 
+        SET correovalor='".$valores."'
+        WHERE correoid='".$correoid."'
+        ;");
+
+    $consulta->execute();
+    $consulta->closeCursor();
+    }
 }
+?>

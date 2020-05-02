@@ -64,8 +64,8 @@
 
     <h2 class="title">CRUD DE CORREO</h2>
     <ul>
-    <li><a href="#">Crear CORREO</a></li>
-    <li><a href="#">Ver CORREO</a></li>
+    <li><a href="?controlador=Cliente&accion=listarClientesCorreo">Crear CORREO</a></li>
+    <li><a href="?controlador=Cliente&accion=cargarVerCorreos">Ver CORREO</a></li>
     </ul>
     <h2 class="title">CRUD DE TEMPORADA</h2>
     <ul>
