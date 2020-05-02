@@ -411,7 +411,7 @@ public function cargarVerCorreos(){
     }
 
     $myObj = json_encode($correos);
-    print_r($myObj);
+    
     $_SESSION['correos'] = $myObj;
     $this->view->show("verCorreo.php",$myObj);
 }
