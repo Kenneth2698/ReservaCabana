@@ -58,19 +58,24 @@
 
     <h2 class="title">CRUD DE TELEFONO</h2>
     <ul>
-    <li><a href="#">Crear TELEFONO</a></li>
-    <li><a href="#">Ver TELEFONO</a></li>
+    <li><a href="?controlador=Cliente&accion=listarClientes">Crear TELEFONO</a></li>
+    <li><a href="?controlador=Cliente&accion=cargarVerTelefonos">Ver TELEFONO</a></li>
     </ul>
 
     <h2 class="title">CRUD DE CORREO</h2>
     <ul>
-    <li><a href="#">Crear CORREO</a></li>
-    <li><a href="#">Ver CORREO</a></li>
+    <li><a href="?controlador=Cliente&accion=listarClientesCorreo">Crear CORREO</a></li>
+    <li><a href="?controlador=Cliente&accion=cargarVerCorreos">Ver CORREO</a></li>
     </ul>
     <h2 class="title">CRUD DE TEMPORADA</h2>
     <ul>
     <li><a href="?controlador=Temporada&accion=cargarCrearTemporada">Crear TEMPORADA</a></li>
     <li><a href="?controlador=Temporada&accion=cargarVerTemporadas">Ver TEMPORADAS</a></li>
+    </ul>
+    <h2 class="title">CRUD DE RESERVA</h2>
+    <ul>
+    <li><a href="?controlador=Reserva&accion=cargarCrearReserva">Crear RESERVA</a></li>
+    <li><a href="?controlador=Reserva&accion=cargarVerReserva">Ver RESERVAS</a></li>
     </ul>
 </div>
 
