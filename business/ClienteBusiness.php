@@ -53,6 +53,27 @@ if(!isset($_SESSION['clienteid_actualizar'])){
     $_SESSION['clienteid_actualizar']=0;
 }
 
+if(!isset($_SESSION['correos'])){
+    $_SESSION['correos'] = array();
+}
+
+if(!isset($_SESSION['id_correo_eliminar'])){
+    $_SESSION['id_correo_eliminar'] = 0;
+}
+
+if(!isset($_SESSION['correos_eliminar'])){
+    $_SESSION['correos_eliminar'] = array();
+}
+
+//////
+if(!isset($_SESSION['id_correo_actualizar'])){
+    $_SESSION['id_correo_actualizar'] = 0;
+}
+
+if(!isset($_SESSION['correos_actualizar'])){
+    $_SESSION['correos_actualizar'] = array();
+}
+
 require 'data/clienteData.php';
 require 'domain/Cliente.php';
 class ClienteBusiness{
@@ -327,6 +348,184 @@ class ClienteBusiness{
 
 
     }
+
+//correo
+public function listarClientesCorreo(){
+    $clienteData = new ClienteData();
+
+    $resultado['clientes'] = $clienteData->obtenerClientes();
+
+    $_SESSION['lista_clientes'] = $resultado['clientes'];
+
+    $this->view->show("seleccionarClienteCorreo.php",$resultado);
+}
+
+public function cargarCrearCorreo(){
+    $_SESSION['clienteid'] = $_POST['select_clientes'];
+    $this->view->show("crearCorreo.php");
+}
+
+public function ampliarListaCorreo(){
+    $valor = $_POST['valor'];
+
+    $_SESSION['lista_valores'][$_SESSION['index_valores']] = $valor;
+    $_SESSION['index_valores']++;
+}
+
+public function insertarCorreo(){
+
+    $string_valores = "";
+
+    foreach($_SESSION['lista_valores'] as $row){
+        $string_valores = $string_valores . ',' . $row;
+    }
+    $string_valores = ltrim($string_valores, $string_valores[0]);
+
+    $clienteData = new ClienteData();
+
+    $clienteData->insertarCorreoCliente($string_valores, $_SESSION['clienteid']);
+
+    //Limpia los arrays
+    $_SESSION['index_valores'] = 0;
+    $_SESSION['lista_valores'] = array();
+
+    $this->view->show("menuServicios.php");
+    
+
+}
+
+
+public function cargarVerCorreos(){
+    $clienteData = new ClienteData();
+
+    $resultado['correos'] = $clienteData->obtenerCorreos();
+
+    $index = 0;
+    foreach($resultado['correos'] as $row){
+        $id = $index;
+        $idcorreo = $resultado['correos'][$index][0];
+        $valores = explode(',',$resultado['correos'][$index][1]);
+        $clienteid = $resultado['correos'][$index][2];
+        $correos[$index] = array("id"=>$id,"idcorreo"=>$idcorreo,"valores"=>$valores,"clienteid"=>$clienteid);
+        $index++;
+    }
+
+    $myObj = json_encode($correos);
+    print_r($myObj);
+    $_SESSION['correos'] = $myObj;
+    $this->view->show("verCorreo.php",$myObj);
+}
+
+public function cargarEliminarCorreo(){
+    $obj = json_decode($_SESSION['correos'],true);
+    $id = $_POST['id'];
+    $_SESSION['clienteid_eliminar'] = $_POST['clienteid'];
+    $datos['correos_cliente'] = $obj[$id]['valores'];
+    $_SESSION['id_correo_eliminar'] = $id;
+    $_SESSION['correos_eliminar'] = $datos['correos_cliente'];
+    $this->view->show("eliminarCorreo.php",$datos);
+}
+
+public function eliminarCorreo(){
+    //$_POST['select_telefono']
+    //$_SESSION['telefonos_eliminar'][$_POST['select_telefono']];
+    $clienteData = new ClienteData();
+
+    $resultado['correos_eliminar'] = $clienteData->obtenerCorreosEliminar($_SESSION['clienteid_eliminar']);
+    
+    
+    $id_eliminar = $resultado['correos_eliminar'][0]['correoid'];
+    $array_correos = explode(',',$resultado['correos_eliminar'][0]['correovalor']);
+    unset($array_correos[$_POST['select_correo']]);  
+    $array_correos_final = array_values($array_correos);
+
+    $string_valores = "";
+
+    foreach($array_correos_final as $row){
+        $string_valores =  $string_valores . ',' . $row;
+    }
+
+    $string_valores = ltrim($string_valores, $string_valores[0]); //Se debe insertar en la bd
+
+    $clienteData->eliminarCorreo($string_valores,$id_eliminar); //Elimina
+
+    $nuevos_datos['correos'] = $clienteData->obtenerCorreos(); //obtiene de nuevo para actualizar la vista
+
+    
+    $index = 0;
+    foreach($nuevos_datos['correos'] as $row){
+        $id = $index;
+        $valores = explode(',',$nuevos_datos['correos'][$index][1]);
+        $clienteid = $nuevos_datos['correos'][$index][2];
+        $correos[$index] = array("id"=>$id,"valores"=>$valores,"clienteid"=>$clienteid);
+        $index++;
+    }
+
+    $myObj = json_encode($correos);
+    $_SESSION['correos'] = $myObj;
+    $this->view->show("verCorreo.php",$myObj);
+    
+
+}
+
+//Actualizar
+
+public function cargarActualizarCorreo(){
+    $obj = json_decode($_SESSION['correos'],true);
+    $id = $_POST['id'];
+    $idcorreo = $_POST['idcorreo'];
+
+    $_SESSION['clienteid_actualizar'] = $_POST['correoclienteid'];
+    
+    $datos['correos_cliente'] = $obj[$id]['valores'];
+    $_SESSION['id_correo_actualizar'] = $idcorreo;
+    print_r($idcorreo);
+    $_SESSION['correos_actualizar'] = $datos['correos_cliente'];
+    $this->view->show("actualizarCorreo.php",$datos);
+}
+
+public function actualizarCorreo(){
+
+    $contador = $_POST['contador'];
+    for($i=0;$i<$contador;$i++){
+        $valores[$i] = $_POST['valores'.$i];
+    }
+
+    $string_datos = "";
+    foreach($valores as $row){
+        $string_datos = $string_datos . ',' . $row;
+    }
+
+    $string_valores = ltrim($string_datos, $string_datos[0]); //Se debe insertar en la bd
+
+    $clienteData = new ClienteData();
+
+    $correoid = $_SESSION['id_correo_actualizar'];
+    
+    
+    $clienteData->actualizarCorreo($correoid,$string_valores);
+    /////////////////////////////////////////////////////////////////////
+
+    $nuevos_datos['correos'] = $clienteData->obtenerCorreos(); //obtiene de nuevo para actualizar la vista
+
+    
+    $index = 0;
+    foreach($nuevos_datos['correos'] as $row){
+        $id = $index;
+        $idcorreo = $nuevos_datos['correos'][$index][0];
+        $valores = explode(',',$nuevos_datos['correos'][$index][1]);
+        $clienteid = $nuevos_datos['correos'][$index][2];
+        $correos[$index] = array("id"=>$id,"idcorreo"=>$idcorreo,"valores"=>$valores,"clienteid"=>$clienteid);
+        $index++;
+    }
+
+    $myObj = json_encode($correos);
+    $_SESSION['correos'] = $myObj;
+    $this->view->show("verCorreo.php",$myObj);
+
+
+}
+
 }
 
 ?>
