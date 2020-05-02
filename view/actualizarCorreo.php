@@ -13,7 +13,7 @@
             <?php
                 $i = 0;
                 foreach ($vars['correos_cliente'] as $row) { ?>  
-                    <label><?php echo $vars['tipos'][$i] ?></label> 
+                  <!--  <label><?php// echo $vars['tipos'][$i] ?></label> -->
                     <input type="email" id="<?php echo 'valores'.$i?>" name="<?php echo 'valores'.$i?>" value="<?php echo $row ?>"></input>  
                                              
                 <?php

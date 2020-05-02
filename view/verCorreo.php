@@ -28,7 +28,7 @@
                 <form method="POST" action="?controlador=Cliente&accion=cargarActualizarCorreo">
                 <input type="hidden" value="<?php echo $correo['id']?>" id="id" name="id">
                 <input type="hidden" value="<?php echo $correo['idcorreo']?>" id="idcorreo" name="idcorreo">
-                <input type="hidden" value="<?php echo $correo['clienteid']?>" id="telefonoclienteid" name="telefonoclienteid">
+                <input type="hidden" value="<?php echo $correo['clienteid']?>" id="correoclienteid" name="correoclienteid">
                     <td><button type="submit">Actualizar</button></td>
                 </form>
                 <form method="POST" action="?controlador=Cliente&accion=cargarEliminarCorreo">

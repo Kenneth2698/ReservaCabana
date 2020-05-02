@@ -479,7 +479,7 @@ public function cargarActualizarCorreo(){
     
     $datos['correos_cliente'] = $obj[$id]['valores'];
     $_SESSION['id_correo_actualizar'] = $idcorreo;
-    print_r($idcorreo);
+    //print_r($idcorreo);
     $_SESSION['correos_actualizar'] = $datos['correos_cliente'];
     $this->view->show("actualizarCorreo.php",$datos);
 }
