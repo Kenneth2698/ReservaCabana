@@ -25,7 +25,7 @@
                     <?php foreach ($vars['cabanas'] as $cabana) {  ?>
 
                         <option value="<?php echo $cabana['tbcabanacaracteristicaid'] ?>"><?php echo $cabana['cabananombre'] ?></option>
-
+                        
                     <?php } ?>
                 </select>
 

@@ -260,6 +260,8 @@ class CabanaBusiness
     {
         $contador = $_POST['i'];
         $codigos = $_POST['codigo'];
+        $caracteristicaid = $_POST['caracteristicaid'];
+
 
         $nombres = "";
         $rutas = "";
@@ -270,7 +272,7 @@ class CabanaBusiness
         }
         $cabanaData = new CabanaData();
 
-        $cabanaData->insertarCaracteristicaImagen($codigos, ltrim($nombres, ','), ltrim($rutas, ','));
+        $cabanaData->insertarCaracteristicaImagen($codigos, ltrim($nombres, ','), ltrim($rutas, ','),$caracteristicaid);
 
         $resultado['cabanas'] = $cabanaData->obtenerCabanasCaracteristicas();
 
