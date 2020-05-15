@@ -43,7 +43,7 @@
             <?php if ($vars['accion'] == 'actualizareliminarpropietario') { ?>
 
                 <form method="POST" action="?controlador=Cabana&accion=actualizarPropietario">
-                <?php foreach ($vars['propietario'] as $datos) { ?>
+                <?php foreach ($vars['propietarios'] as $datos) { ?>
                         <input id="propietarioid" name="propietarioid" value="<?php echo $datos['propietarioid']?>" type="hidden">
                         <label for="nombre">Nombre</label>
                         <input id="nombre" name="nombre" type="text" value="<?php echo $datos['propietarionombre']?>"> 

@@ -77,6 +77,11 @@
     <li><a href="?controlador=Reserva&accion=cargarCrearReserva">Crear RESERVA</a></li>
     <li><a href="?controlador=Reserva&accion=cargarVerReserva">Ver RESERVAS</a></li>
     </ul>
+    <h2 class="title">CRUD DE CUENTA PROPIETARIO</h2>
+    <ul>
+    <li><a href="?controlador=Cabana&accion=cargarFormPropietarioCuenta">Insertar cuenta a propietarios</a></li>
+    <li><a href="?controlador=Cabana&accion=cargarSeleccionarPropietarioCuenta">Ver cuentas</a></li>
+    </ul>
 </div>
 
 <!-- Jquery JS-->

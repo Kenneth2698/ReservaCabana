@@ -277,4 +277,40 @@ class CabanaData
 
         return $resultado;
     }
+
+    //Cuenta propietario
+    public function insertarPropietarioCuenta($propietarioid,$propietariocuentabancariabanconombre,$propietariocuentabancariabanconumerocuenta,$propietariocuentabancariaestado){
+        $consulta = $this->db->prepare("INSERT INTO tbpropietariocuentabancaria (propietarioid,propietariocuentabancariabanconombre,propietariocuentabancariabanconumerocuenta,propietariocuentabancariaestado)
+         VALUES ( '".$propietarioid."' ,   '" . $propietariocuentabancariabanconombre . "','" . $propietariocuentabancariabanconumerocuenta . "','" . $propietariocuentabancariaestado . "');");
+
+        $consulta->execute();
+        $consulta->CloseCursor();
+    }
+
+    public function obtenerCuentas($propietarioid){
+        $consulta = $this->db->prepare("SELECT propietariocuentabancariaid,propietarioid,propietariocuentabancariabanconumerocuenta,propietariocuentabancariaestado,propietariocuentabancariabanconombre 
+        FROM tbpropietariocuentabancaria WHERE propietarioid =" . $propietarioid . ";");
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->CloseCursor();
+
+
+        return $resultado;
+    }
+
+    public function eliminarCuentaPropietario($idCuenta){
+       $consulta = $this->db->prepare("DELETE FROM tbpropietariocuentabancaria WHERE propietariocuentabancariaid = $idCuenta");
+       $consulta->execute();
+       $consulta->CloseCursor();
+    }
+
+    public function actualizarCuenta($idCuenta,$numeroCuenta,$estadoCuenta,$banco){
+        $consulta = $this->db->prepare("
+        UPDATE tbpropietariocuentabancaria 
+        SET propietariocuentabancariabanconombre ='" . $banco . "' , propietariocuentabancariabanconumerocuenta ='" . $numeroCuenta . "', propietariocuentabancariaestado = '".$estadoCuenta."'
+         WHERE propietariocuentabancariaid ='" . $idCuenta . "';");
+
+        $consulta->execute();
+        $consulta->CloseCursor();
+    }
 }

@@ -487,4 +487,65 @@ class CabanaBusiness
 
         $this->view->show("verCabanasActualizarDireccion.php", $resultado);
     }
-};
+
+
+
+    //Propietario y cuenta bancaria
+    public function cargarFormPropietarioCuenta(){
+        $cabana = new CabanaData();
+        $data["propietarios"]= $cabana->obtenerPropietarios();
+        $this->view->show("registrarPropietarioCuenta.php", $data);
+    }
+
+    public function insertarPropietarioCuenta(){
+        $cabana = new CabanaData();
+        $propietarioid = $_POST['propietario'];
+        $propietariocuentabancariabanconombre = $_POST['banco'];
+        $propietariocuentabancariabanconumerocuenta = $_POST['cuenta'];
+        $propietariocuentabancariaestado = $_POST['estado'];
+        $cabana->insertarPropietarioCuenta($propietarioid,$propietariocuentabancariabanconombre,$propietariocuentabancariabanconumerocuenta,$propietariocuentabancariaestado);
+        $this->view->show("indexView.php");
+    }
+
+    public function cargarSeleccionarPropietarioCuenta(){
+        $cabana = new CabanaData();
+        $data["propietarios"]= $cabana->obtenerPropietarios();
+        $this->view->show("seleccionarPropietarioCuenta.php", $data);
+    }
+
+    public function cargarListaCuentasPropietario(){
+        $cabana = new CabanaData();
+        $idPropietario = $_POST['idpropietario'];
+        $data["cuentas"]= $cabana->obtenerCuentas($idPropietario);
+        $this->view->show("verListaCuentas.php", $data);
+    }
+
+    public function eliminarCuentaPropietario(){
+        $cabana = new CabanaData();
+        $idCuenta = $_POST['idCuenta'];
+        $cabana->eliminarCuentaPropietario($idCuenta);
+        $this->view->show("menuServicios.php");
+    }
+
+    public function cargarActualizarCuenta(){
+        $idCuenta = $_POST['idCuenta'];
+        $numeroCuenta = $_POST['cuenta'];
+        $estadoCuenta = $_POST['estado'];
+        $datos['id'] = $idCuenta;
+        $datos['cuenta'] = $numeroCuenta;
+        $banco = $_POST['banco'];
+        $datos['estado'] = $estadoCuenta;
+        $datos['banco'] = $banco;
+        $this->view->show("actualizarCuenta.php", $datos);
+    }
+
+    public function actualizarCuenta(){
+        $cabana = new CabanaData();
+        $idCuenta = $_POST['idCuenta'];
+        $numeroCuenta = $_POST['cuenta'];
+        $banco = $_POST['banco'];
+        $estadoCuenta = $_POST['estado'];
+        $cabana->actualizarCuenta($idCuenta,$numeroCuenta,$estadoCuenta,$banco);
+        $this->view->show("menuServicios.php");
+    }
+}
