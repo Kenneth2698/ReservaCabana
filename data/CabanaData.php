@@ -16,7 +16,7 @@ class CabanaData
     public function insertarCabana($cabana)
     {
 
-        $consulta = $this->db->prepare("INSERT INTO tbcabana (cabananombre,propietarioid) VALUES ( '" . $cabana->getNombre() . "',".$cabana->getPropietario().");");
+        $consulta = $this->db->prepare("INSERT INTO tbcabana (cabananombre,propietarioid,cabanaestado) VALUES ( '" . $cabana->getNombre() . "',".$cabana->getPropietario().",1);");
 
 
         $consulta->execute();
@@ -49,9 +49,9 @@ class CabanaData
 
         return $resultado;
     }
-
+    
     public function obtenerDireccionInfo($cabanaid){
-        $consulta = $this->db->prepare("select direccionid,direccionprovincia,direccioncanton,direcciondistrito,direccionotrasenas from tbdireccion where direccioncabanaid = ".$cabanaid." ;");
+        $consulta = $this->db->prepare("select direccionid,direccionprovincia,direccioncanton,direcciondistrito,direccionotrasenas from tbcabanadireccion where cabanaid = ".$cabanaid." ;");
 
 
         $consulta->execute();
@@ -88,9 +88,9 @@ class CabanaData
         $consulta->execute();
         $consulta->CloseCursor();
     }
-
+    
     public function eliminarDireccion($direccionid){
-        $consulta = $this->db->prepare("DELETE FROM tbdireccion WHERE direccionid = $direccionid");
+        $consulta = $this->db->prepare("DELETE FROM tbcabanadireccion WHERE direccionid = $direccionid");
 
         $consulta->execute();
         $consulta->CloseCursor();
@@ -208,9 +208,9 @@ class CabanaData
         return $resultado;
     }
 
-    public function insertarCaracteristicaImagen($codigos, $nombres, $rutas)
+    public function insertarCaracteristicaImagen($codigos, $nombres, $rutas,$caracteristicaid)
     {
-        $consulta = $this->db->prepare("INSERT INTO tbcaracteristicaimagen (caracteristicaimagencodigo,caracteristicaimagennombre,caracteristicaimagenruta) VALUES ( '" . $codigos . "','" . $nombres . "','" . $rutas . "');");
+         $consulta = $this->db->prepare("INSERT INTO tbcaracteristicaimagen (cabanacaracteristicaid,caracteristicaimagencodigo,caracteristicaimagennombre,caracteristicaimagenruta) VALUES ( ".$caracteristicaid." ,   '" . $codigos . "','" . $nombres . "','" . $rutas . "');");
 
         $consulta->execute();
         $consulta->CloseCursor();
@@ -229,10 +229,10 @@ class CabanaData
 
         return $resultado;
     }
-
+    
     public function insertarDireccion($provincia, $canton, $distrito, $senas, $cabanaid)
     {
-        $consulta = $this->db->prepare("INSERT INTO tbdireccion (direccionprovincia,direccioncanton,direcciondistrito,direccionotrasenas,direccioncabanaid) VALUES ( '" . $provincia . "','" . $canton . "','" . $distrito . "','" . $senas . "','" . $cabanaid . "');");
+        $consulta = $this->db->prepare("INSERT INTO tbcabanadireccion (direccionprovincia,direccioncanton,direcciondistrito,direccionotrasenas,cabanaid) VALUES ( '" . $provincia . "','" . $canton . "','" . $distrito . "','" . $senas . "','" . $cabanaid . "');");
 
         $consulta->execute();
         $consulta->CloseCursor();
@@ -255,10 +255,10 @@ class CabanaData
         $consulta->execute();
         $consulta->CloseCursor();
     }
-
+    
     public function actualizarDireccion($provincia, $canton, $distrito, $senas,$id){
         $consulta = $this->db->prepare("
-        UPDATE tbdireccion 
+        UPDATE tbcabanadireccion 
         SET direccionprovincia='" . $provincia . "' , direccioncanton ='" . $canton . "', direcciondistrito = '".$distrito."', direccionotrasenas = '".$senas."'
          WHERE direccionid='" . $id . "';");
 

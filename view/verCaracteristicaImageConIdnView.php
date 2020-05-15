@@ -52,6 +52,7 @@
                    
                     <input type="hidden" value="<?php echo $i ?>" id="i" name="i">
                     <input type="hidden" value="<?php echo $datos['cabanacaracteristicacodigo'] ?>" id="codigo" name="codigo">
+                    <input type="hidden" value="<?php echo $datos['tbcabanacaracteristicaid'] ?>" id="caracteristicaid" name="caracteristicaid">
                 </form>
             <?php } ?>
            

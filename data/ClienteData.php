@@ -14,16 +14,16 @@ class ClienteData
     public function insertarCliente($cliente)
     {
         $consulta = $this->db->prepare("
-            INSERT INTO tbcliente (clientenombrecompleto) 
+            INSERT INTO tbcliente (clientenombrecompleto,clienteestado) 
             
-            VALUES ( '" . $cliente->getNombre() . "')");
+            VALUES ( '" . $cliente->getNombre() . "',1)");
 
 
         $consulta->execute();
         $consulta->closeCursor();
     }
 
-
+    
     public function obtenerClientes()
     {
 
@@ -145,10 +145,10 @@ class ClienteData
     $consulta->execute();
     $consulta->closeCursor();
     }
-
+//tbclientecorreo 
     public function insertarCorreoCliente($string_valores,$clienteid){
         $consulta = $this->db->prepare("
-            INSERT INTO tbcorreo (correovalor,correoclienteid) 
+            INSERT INTO tbclientecorreo (correovalor,clienteid) 
             
             VALUES ('" . $string_valores . "','" . $clienteid . "')");
 
@@ -161,8 +161,8 @@ class ClienteData
     {
 
         $consulta = $this->db->prepare('
-                                        SELECT correoid,correovalor,correoclienteid
-                                        FROM tbcorreo');
+                                        SELECT correoid,correovalor,clienteid
+                                        FROM tbclientecorreo');
 
 
         $consulta->execute();
@@ -178,7 +178,7 @@ class ClienteData
 
         $consulta = $this->db->prepare("
                                         SELECT correoid,correovalor
-                                        FROM tbcorreo WHERE correoclienteid='".$id."'
+                                        FROM tbclientecorreo WHERE clienteid='".$id."'
                                         ");
 
 
@@ -195,7 +195,7 @@ class ClienteData
         print_r($id);
         $consulta = $this->db->prepare("
                                         SELECT correoid
-                                        FROM tbcorreo WHERE clienteid='".$id."'
+                                        FROM tbclientecorreo WHERE clienteid='".$id."'
                                         ");
 
 
@@ -210,7 +210,7 @@ class ClienteData
     public function eliminarCorreo($valores,$correoid){
         
         $consulta = $this->db->prepare("
-        UPDATE tbcorreo 
+        UPDATE tbclientecorreo 
         SET correovalor='".$valores."'
         WHERE correoid='".$correoid."'
         ;");
@@ -221,7 +221,7 @@ class ClienteData
 
     public function actualizarCorreo($correoid,$valores){
         $consulta = $this->db->prepare("
-        UPDATE tbcorreo 
+        UPDATE tbclientecorreo 
         SET correovalor='".$valores."'
         WHERE correoid='".$correoid."'
         ;");
