@@ -313,4 +313,42 @@ class CabanaData
         $consulta->execute();
         $consulta->CloseCursor();
     }
+
+    public function insertarTarifa($idcabana,$monto){
+        $consulta = $this->db->prepare("INSERT INTO tbcabanatarifa (cabanaid,cabanatarifamonto) VALUES ( '" . $idcabana . "','" . $monto . "');");
+
+        $consulta->execute();
+        $consulta->CloseCursor();
+    }
+
+    public function obtenerTarifas()
+    {
+
+        $consulta = $this->db->prepare('select t.cabanatarifaid,t.cabanatarifamonto,c.cabananombre from tbcabanatarifa t 
+        join tbcabana c on t.cabanaid=c.cabanaid');
+
+
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->CloseCursor();
+
+
+        return $resultado;
+    }
+
+    public function eliminarTarifa($idtarifa){
+        $consulta = $this->db->prepare("DELETE FROM tbcabanatarifa WHERE cabanatarifaid = $idtarifa");
+        $consulta->execute();
+        $consulta->CloseCursor();
+    }
+
+    public function actualizarTarifa($idtarifa,$monto){
+        $consulta = $this->db->prepare("
+        UPDATE tbcabanatarifa 
+        SET cabanatarifamonto ='" . $monto . "'
+         WHERE cabanatarifaid ='" . $idtarifa . "';");
+
+        $consulta->execute();
+        $consulta->CloseCursor();
+    }
 }

@@ -19,6 +19,10 @@ if (!isset($_SESSION['indice'])) {
     $_SESSION['indice'] = 0;
 }
 
+if(!isset($_SESSION['lista_cabanas'])){
+    $_SESSION['lista_cabanas'] = array();
+}
+
 
 require 'domain/Servicio.php';
 require 'data/ServicioData.php';
@@ -547,5 +551,65 @@ class CabanaBusiness
         $estadoCuenta = $_POST['estado'];
         $cabana->actualizarCuenta($idCuenta,$numeroCuenta,$estadoCuenta,$banco);
         $this->view->show("menuServicios.php");
+    }
+
+    public function listarCabanaTarifa(){
+        $cabanaData = new CabanaData();
+
+        $resultado['cabanas'] = $cabanaData->obtenerCabanas();
+
+        $_SESSION['lista_cabanas'] = $resultado['cabanas'];
+
+        $this->view->show("seleccionarCabanaTarifa.php",$resultado);
+    }
+
+    public function insertarTarifa()
+    {
+        $cabanaData = new CabanaData();
+        $idcabana = $_POST['select_cabanas'];
+        $monto = $_POST['tarifamonto'];
+        $cabanaData-> insertarTarifa($idcabana,$monto);
+
+        $resultado['tarifas'] = $cabanaData->obtenerTarifas();
+        
+        $this->view->show("verTarifa.php",$resultado);
+    }
+
+    public function cargarVerTarifa(){
+        $cabanaData = new CabanaData();
+    
+        $resultado['tarifas'] = $cabanaData->obtenerTarifas();
+        
+        $this->view->show("verTarifa.php",$resultado);
+    }
+
+    public function eliminarTarifa(){
+        $cabanaData = new CabanaData();
+        $cabanaData->eliminarTarifa($_POST['cabanatarifaid']);
+
+        $resultado['tarifas'] = $cabanaData->obtenerTarifas();
+        
+        $this->view->show("verTarifa.php",$resultado);
+    }
+
+    public function cargarActualizarTarifa(){
+        $idtarifa = $_POST['cabanatarifaid'];
+        $cabana = $_POST['cabananombre'];
+        $monto = $_POST['cabanatarifamonto'];
+        
+        $datos['idtarifa'] = $idtarifa;
+        $datos['cabana'] = $cabana;
+        $datos['monto'] = $monto;
+        
+        $this->view->show("actualizarTarifa.php",$datos);
+    }
+
+    public function actualizarTarifa(){
+        $cabanaData = new CabanaData();
+        $cabanaData->actualizarTarifa($_POST['cabanatarifaid'],$_POST['cabanatarifamonto']);
+
+        $resultado['tarifas'] = $cabanaData->obtenerTarifas();
+        
+        $this->view->show("verTarifa.php",$resultado);
     }
 }
