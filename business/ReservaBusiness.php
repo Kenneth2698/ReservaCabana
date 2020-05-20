@@ -136,7 +136,61 @@ class ReservaBusiness
         $resultado['reservas'] = $reservaData->obtenerReservas();
         $this->view->show("verReserva.php", $resultado);
     }
-  
+
+
+    //filtros
+    public function cargarFiltroReserva(){
+        $reservaData = new ReservaData();
+        $res["c"] = $reservaData->obtenerTodasLasCaracteristicas();
+        $index = 0;
+
+        foreach($res["c"] as $item){
+            $valores["c"][$index] = explode(',',$res["c"][$index]["cabanacaracteristicacriterio"]);
+            $index++;
+        }
+        $res["v"] = $reservaData->obtenerTodosLosValores();
+
+        $index2 = 0;
+        foreach($res["v"] as $item){
+            $valores["v"][$index2] = explode(',',$res["v"][$index2]["cabanacaracteristicavalor"]);
+            $index2++;
+        }
+        
+        $x=0;
+        $sizeV = 0;
+        foreach($valores["v"] as $row){
+                $sizeV =$sizeV + sizeof($row);
+        }
+     
+        $valores["t"] = $sizeV;                
+      $this->view->show("buscarReservaFiltro.php",$valores);  
+    }
+
+    public function mostrarResultadosFiltrados(){
+        $nombre = $_POST["nombre"];
+        $fecha1 = $_POST["fecha1"];
+        $fecha2 = $_POST["fecha2"];
+        $cantidad = $_POST["cantidad"];
+        $caracteristica = $_POST["caracteristica"];
+        $reservaData = new ReservaData();
+        $res = $reservaData->obtenerResultadosFiltrados($nombre,$fecha1,$fecha2,$cantidad,$caracteristica);
+        if(sizeof($res) != 0){
+            $this->view->show("todosLosResultados.php", $res); 
+        }else{
+            echo "Calavera";
+        }
+        
+    }   
+
+    public function realizarReservaEspecifica(){
+        $nombre = $_POST["nombre"];
+        $id = $_POST["id"];
+        $res["nombre"] = $nombre;
+        $res["id"]= $id;
+        $this->view->show("resultadosReservaFiltrados.php", $res);
+    }
 }
+
+
 
 ?>

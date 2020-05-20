@@ -76,6 +76,7 @@
     <ul>
     <li><a href="?controlador=Reserva&accion=cargarCrearReserva">Crear RESERVA</a></li>
     <li><a href="?controlador=Reserva&accion=cargarVerReserva">Ver RESERVAS</a></li>
+    <li><a href="?controlador=Reserva&accion=cargarFiltroReserva">Buscar RESERVAS</a></li>
     </ul>
     <h2 class="title">CRUD DE CUENTA PROPIETARIO</h2>
     <ul>
