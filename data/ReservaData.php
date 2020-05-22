@@ -8,114 +8,146 @@ class ReservaData
     {
         require 'libs/SPDO.php';
 
-       $this->db = SPDO::singleton();
-
-    }//constructor
-
+        $this->db = SPDO::singleton();
+    } //constructor
 
 
-    public function insertarReserva($cabanaid,$reservacodigo,$reservafechainicio,$reservafechafin,$reservahorainicio,$reservahorafin,$reservacantidadpersonas,$reservatipopago,$clienteid){
+
+    public function insertarReserva($cabanaid, $reservacodigo, $reservafechainicio, $reservafechafin, $reservahorainicio, $reservahorafin, $reservacantidadpersonas, $reservatipopago, $clienteid)
+    {
 
         $consulta = $this->db->prepare("
             INSERT INTO tbreserva (cabanaid,reservacodigo,reservafechainicio,reservafechafin,reservahorainicio,reservahorafin,reservacantidadpersonas,reservatipopago,reservaclienteid)
-             VALUES ( '".$cabanaid."','".$reservacodigo."','".$reservafechainicio."','".$reservafechafin."','".$reservahorainicio."','".$reservahorafin."','".$reservacantidadpersonas."','".$reservatipopago."','".$clienteid."');");
+             VALUES ( '" . $cabanaid . "','" . $reservacodigo . "','" . $reservafechainicio . "','" . $reservafechafin . "','" . $reservahorainicio . "','" . $reservahorafin . "','" . $reservacantidadpersonas . "','" . $reservatipopago . "','" . $clienteid . "');");
 
         $consulta->execute();
-
-
     }
 
 
-    public function obtenerReservas(){
+    public function obtenerReservas()
+    {
 
         $consulta = $this->db->prepare('select * from tbreserva');
-        
-        
+
+
         $consulta->execute();
         $resultado = $consulta->fetchAll();
         $consulta->CloseCursor();
 
-        
-        return $resultado;
 
+        return $resultado;
     }
 
-    public function eliminarReserva($reservaid){
+    public function eliminarReserva($reservaid)
+    {
         $consulta = $this->db->prepare("DELETE FROM tbreserva WHERE reservaid=$reservaid");
 
         $consulta->execute();
         $consulta->closeCursor();
     }
 
-    public function obtenerReservaActualizar($reservaid){
+    public function obtenerReservaActualizar($reservaid)
+    {
         $consulta = $this->db->prepare("
         SELECT reservaid,reservaclienteid,reservafechainicio,reservafechafin,reservahorainicio,reservahorafin,reservacantidadpersonas
-        FROM tbreserva WHERE reservaid ='".$reservaid."';");
+        FROM tbreserva WHERE reservaid ='" . $reservaid . "';");
 
-    $consulta->execute();
-    $resultado=$consulta->fetchAll();
-    $consulta->closeCursor();
-    return $resultado;
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->closeCursor();
+        return $resultado;
     }
 
-    public function actualizarReserva($reservacodigo,$reservafechainicio,$reservafechafin,$reservahorainicio,$reservahorafin,$reservacantidadpersonas,$reservaid){
+    public function actualizarReserva($reservacodigo, $reservafechainicio, $reservafechafin, $reservahorainicio, $reservahorafin, $reservacantidadpersonas, $reservaid)
+    {
         $consulta = $this->db->prepare("
         UPDATE tbreserva 
-        SET reservacodigo='".$reservacodigo."',
-        reservafechainicio='".$reservafechainicio."',
-        reservafechafin='".$reservafechafin."',
-        reservahorainicio='".$reservahorainicio."',
-        reservahorafin='".$reservahorafin."',
-        reservacantidadpersonas='".$reservacantidadpersonas."'
-        WHERE reservaid='".$reservaid."'
+        SET reservacodigo='" . $reservacodigo . "',
+        reservafechainicio='" . $reservafechainicio . "',
+        reservafechafin='" . $reservafechafin . "',
+        reservahorainicio='" . $reservahorainicio . "',
+        reservahorafin='" . $reservahorafin . "',
+        reservacantidadpersonas='" . $reservacantidadpersonas . "'
+        WHERE reservaid='" . $reservaid . "'
         ;");
 
-    $consulta->execute();
-    $consulta->closeCursor();
+        $consulta->execute();
+        $consulta->closeCursor();
     }
 
-    public function obtenerTodasLasCaracteristicas(){
+    public function obtenerTodasLasCaracteristicas()
+    {
         $consulta = $this->db->prepare("
         SELECT cabanacaracteristicacriterio
         FROM tbcabanacaracteristica;");
 
-    $consulta->execute();
-    $resultado=$consulta->fetchAll();
-    $consulta->closeCursor();
-    return $resultado;
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->closeCursor();
+        return $resultado;
     }
 
-    public function obtenerTodosLosValores(){
+    public function obtenerTodosLosValores()
+    {
         $consulta = $this->db->prepare("
         SELECT cabanacaracteristicavalor
         FROM tbcabanacaracteristica;");
 
-    $consulta->execute();
-    $resultado=$consulta->fetchAll();
-    $consulta->closeCursor();
-    return $resultado;
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->closeCursor();
+        return $resultado;
     }
 
-    public function obtenerResultadosFiltrados($nombre,$fecha1,$fecha2,$cantidad,$criterio){
-        $consulta = $this->db->prepare("SELECT c.cabanaid , c.cabananombre FROM tbcabana c
+    public function obtenerResultadosFiltrados($nombre, $fecha1, $fecha2, $cantidad, $criterio)
+    {
+        $consulta = $this->db->prepare("SELECT c.cabanaid , c.cabananombre, cc.cabanacaracteristicacriterio, cc.cabanacaracteristicavalor, ci.caracteristicaimagenruta ,cc.cabanacaracteristicaprioridad,cd.direccionprovincia, cd.direccioncanton,cd.direcciondistrito,cd.direccionotrasenas FROM tbcabana c
         JOIN tbcabanacaracteristica cc
         ON c.cabanaid = cc.cabanaid
         JOIN tbcabanadireccion cd
         ON c.cabanaid = cd.cabanaid
-        WHERE cc.cabanacaracteristicavalor LIKE '%".$criterio."%'
-            AND c.cabanacantidad >= $cantidad
-            AND NOT EXISTS(
-                            SELECT * FROM tbreserva r2
-                            JOIN tbcabana c2
-                            ON c2.cabanaid = r2.cabanaid
-                            WHERE reservafechainicio >= '".$fecha1."' AND reservafechafin <= '".$fecha2."' 
-                            )
-            AND c.cabananombre LIKE '%".$nombre."%';
+        JOIN tbcaracteristicaimagen ci
+        on cc.tbcabanacaracteristicaid = ci.cabanacaracteristicaid 
+        WHERE NOT EXISTS(
+					SELECT c.cabanaid FROM tbreserva r2
+					JOIN tbcabana c2
+					ON c2.cabanaid = r2.cabanaid
+					WHERE reservafechainicio >= '$fecha1' AND reservafechafin <= '$fecha2' AND c.cabanaid = c2.cabanaid
+					)
+        OR  c.cabananombre like '%$nombre%' AND c.cabanacantidad >=10 AND cc.cabanacaracteristicavalor like '%$criterio%'	
+        AND NOT EXISTS(
+					SELECT c.cabanaid FROM tbreserva r2
+					JOIN tbcabana c2
+					ON c2.cabanaid = r2.cabanaid
+					WHERE reservafechainicio >= '$fecha1' AND reservafechafin <= '$fecha2' AND c.cabanaid = c2.cabanaid
+					)
         ");
 
-    $consulta->execute();
-    $resultado=$consulta->fetchAll();
-    $consulta->closeCursor();
-    return $resultado;
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+
+
+
+        $consulta->closeCursor();
+        return $resultado;
+    }
+
+    public function verificarCabana($cabanaid, $fecha1, $fecha2, $cantidad)
+    {
+
+        $consulta = $this->db->prepare("SELECT c.cabanaid, c.cabananombre FROM tbcabana c
+        WHERE  c.cabanaid = $cabanaid
+        AND NOT EXISTS(
+					SELECT c.cabanaid FROM tbreserva r2
+					JOIN tbcabana c2
+					ON c2.cabanaid = r2.cabanaid
+					WHERE reservafechainicio >= '$fecha1' AND reservafechafin <= '$fecha2' AND c.cabanaid = c2.cabanaid
+					)
+        ");
+
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+
+        return $resultado;
     }
 }
