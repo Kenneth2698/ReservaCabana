@@ -4,7 +4,7 @@ let currentYear = today.getFullYear();
 let selectYear = document.getElementById("year");
 let selectMonth = document.getElementById("month");
 
-let months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"];
+var months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"];
 
 let monthAndYear = document.getElementById("monthAndYear");
 showCalendar(currentMonth, currentYear);
@@ -21,6 +21,7 @@ function next() {
 function previous() {
     currentYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
     currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
+
     let turnos = document.getElementById("selectorDeTurno");
     turnos.style.display = "none";
     showCalendar(currentMonth, currentYear);
@@ -55,7 +56,7 @@ function showCalendar(month, year) {
                 let cellText = document.createTextNode("");
                 cell.appendChild(cellText);
                 row.appendChild(cell);
-                
+
             }
             else if (date > daysInMonth) {
                 break;
@@ -71,14 +72,65 @@ function showCalendar(month, year) {
                 row.appendChild(cell);
 
                 //Obtiene el dia seleccionado
-                cell.addEventListener("click",function(){
+                cell.addEventListener("click", function () {
 
                     let div = document.getElementById("diaSeleccionado");
-                    console.log(cellText.nodeValue);
 
-                    div.innerHTML = 'Dia seleccionado: '+cellText.nodeValue;
+
+                    var parametros = {
+                        'cabanaid': 1,
+                        'day': cellText.nodeValue,
+                        'month': month + 1,
+                        'year': year,
+                    };
+                    var respuesta;
+                    $.ajax(
+                        {
+
+                            data: parametros,
+                            url: '?controlador=Reserva&accion=verificarFechaCalendario',
+                            type: 'post',
+                            async: false,
+
+                            success: function (response) {
+
+                                respuesta = JSON.parse(response);
+
+                            },
+
+                        }
+                    );
+                    
+                    div.innerHTML = 'Dia seleccionado: ' + cellText.nodeValue;
                     let turnos = document.getElementById("selectorDeTurno");
                     turnos.style.display = "block";
+
+                    let manana = document.getElementById("turno1");
+                    let tarde = document.getElementById("turno2");
+                    let noche = document.getElementById("turno3");
+
+
+                    if (respuesta.Manana == "1") {
+                        manana.classList.add('bg-success');
+                    } else {
+                        manana.classList.add('bg-danger');
+                    }
+
+
+                    if (respuesta.Tarde == "1") {
+                        tarde.classList.add('bg-success');
+                    } else {
+                        tarde.classList.add('bg-danger');
+                    }
+
+
+                    if (respuesta.Noche == "1") {
+                        noche.classList.add('bg-success');
+                    } else {
+                        noche.classList.add('bg-danger');
+                    }
+
+
                 });
                 date++;
             }
@@ -87,21 +139,23 @@ function showCalendar(month, year) {
         }
 
         tbl.appendChild(row); // appending each row into calendar body.
-        
+
     }
 
 }
+
+
 
 let turno1 = document.getElementById("turno1");
 let turno2 = document.getElementById("turno2");
 let turno3 = document.getElementById("turno3");
 
-turno1.addEventListener("click",function(){
-    turno1.classList.add('bg-success');
+turno1.addEventListener("click", function () {
+    //turno1.classList.add('bg-success');
 });
-turno2.addEventListener("click",function(){
-    turno2.classList.add('bg-danger');
+turno2.addEventListener("click", function () {
+    //turno2.classList.add('bg-danger');
 });
-turno3.addEventListener("click",function(){
-    turno3.classList.add('bg-warning');
+turno3.addEventListener("click", function () {
+    // turno3.classList.add('bg-warning');
 });
