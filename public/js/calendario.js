@@ -111,23 +111,23 @@ function showCalendar(month, year) {
 
 
                     if (respuesta.Manana == "1") {
-                        manana.classList.add('bg-success');
+                        manana.style.backgroundColor  = 'green';
                     } else {
-                        manana.classList.add('bg-danger');
+                        manana.style.backgroundColor  = 'red';
                     }
 
 
                     if (respuesta.Tarde == "1") {
-                        tarde.classList.add('bg-success');
+                        tarde.style.backgroundColor  = 'green';
                     } else {
-                        tarde.classList.add('bg-danger');
+                        tarde.style.backgroundColor  = 'red';
                     }
 
 
                     if (respuesta.Noche == "1") {
-                        noche.classList.add('bg-success');
+                        noche.style.backgroundColor  = 'green';
                     } else {
-                        noche.classList.add('bg-danger');
+                        noche.style.backgroundColor  = 'red';
                     }
 
 

@@ -161,7 +161,7 @@ class ReservaData
 
         $consulta->execute();
         $resultado = $consulta->fetchAll();
-        //print_r($resultado);
+        $consulta->closeCursor();
         return $resultado[0][0];
     }
 
@@ -174,7 +174,7 @@ class ReservaData
 
         $consulta->execute();
         $resultado = $consulta->fetchAll();
-
+        $consulta->closeCursor();
         return $resultado[0][0];
     }
 
@@ -187,7 +187,7 @@ class ReservaData
 
         $consulta->execute();
         $resultado = $consulta->fetchAll();
-
+        $consulta->closeCursor();
         return $resultado[0][0];
     }
 }
