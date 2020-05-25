@@ -185,7 +185,7 @@ class ReservaBusiness
         $res = $reservaData->obtenerResultadosFiltrados($nombre, $fecha1, $fecha2, $cantidad, $caracteristica);
 
         if (sizeof($res) != 0) {
-            
+
             $res[0]['fecha1'] =  $fecha1;
             $res[0]['fecha2'] =  $fecha2;
             $res[0]['cantidad'] = $cantidad;
@@ -223,38 +223,68 @@ class ReservaBusiness
             echo "Calavera";
         }
     }
+
+
+
     public function realizarReservaEspecifica()
     {
-        $datos = array("cabanaid"=>$_POST['cabanaid'],"fecha1"=>$_POST['fecha1'],"fecha2"=>$_POST['fecha2'],"cantidad"=>$_POST['cantidad'],"cabananombre"=>$_POST['cabananombre']);
+        $datos = array("cabanaid" => $_POST['cabanaid'], "fecha1" => $_POST['fecha1'], "fecha2" => $_POST['fecha2'], "cantidad" => $_POST['cantidad'], "cabananombre" => $_POST['cabananombre']);
 
         $this->view->show("resultadosReservaFiltrados.php", $datos);
     }
 
-    public function ultimaVerificacion(){
-        
+    public function ultimaVerificacion()
+    {
+
         $cabanaid = $_POST['cabanaid'];
         $fecha1 = $_POST['fecha1'];
         $fecha2 = $_POST['fecha2'];
         $cantidad = $_POST['cantidad'];
-        
+
 
         $reservaData = new ReservaData();
         $res = $reservaData->verificarCabana($cabanaid, $fecha1, $fecha2, $cantidad);
-        
+
         if (sizeof($res) != 0) {
-           
-        $res[0]['fecha1'] =  $fecha1;
-        $res[0]['fecha2'] =  $fecha2;
-        $res[0]['cantidad'] = $cantidad;
-        $res['cabanas']['bandera']= true;
 
-        $this->view->show("crearReserva.php", $res);
+            $res[0]['fecha1'] =  $fecha1;
+            $res[0]['fecha2'] =  $fecha2;
+            $res[0]['cantidad'] = $cantidad;
+            $res['cabanas']['bandera'] = true;
 
-        }else{
-        echo 'No esta disponible'   ;
+            $this->view->show("crearReserva.php", $res);
+        } else {
+            echo 'No esta disponible';
         }
-
     }
 
 
+    public function mostrarCalendario()
+    {
+        $this->view->show("test.php", $res = null);
+    }
+
+    public function verificarFechaCalendario()
+    {
+        $fecha = $_POST['year'] . "-" . $_POST['month'] . "-" . $_POST['day'];
+        $cabanaid = $_POST['cabanaid'];
+
+
+        $reservaData = new ReservaData();
+
+        $disponibilidadManana = $reservaData->obtenerDisponibilidadManana($fecha, $cabanaid);
+
+        $disponibilidadTarde = $reservaData->obtenerDisponibilidadTarde($fecha, $cabanaid);
+        $disponibilidadNoche = $reservaData->obtenerDisponibilidadNoche($fecha, $cabanaid);
+
+        $respuesta = array("Manana" => $disponibilidadManana, "Tarde" => $disponibilidadTarde, "Noche" => $disponibilidadNoche);
+
+        echo json_encode($respuesta);
+    }
+
+    public function test()
+    {
+        unset($_SESSION['test']);
+        echo $_SESSION['test'];
+    }
 }

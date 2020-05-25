@@ -150,4 +150,44 @@ class ReservaData
 
         return $resultado;
     }
+
+    public function obtenerDisponibilidadManana($fecha, $cabanaid)
+    {
+
+        $consulta = $this->db->prepare("SELECT NOT EXISTS 
+                                        (select * from tbreserva where reservahorainicio < '11:59:00' 
+                                        AND ('$fecha' BETWEEN reservafechainicio AND reservafechafin)
+                                         AND cabanaid = $cabanaid) as manana");
+
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        //print_r($resultado);
+        return $resultado[0][0];
+    }
+
+    public function obtenerDisponibilidadTarde($fecha, $cabanaid)
+    {
+        $consulta = $this->db->prepare("SELECT NOT EXISTS 
+                                        (select * from tbreserva where reservahorainicio < '17:59:00' 
+                                        AND ('$fecha' BETWEEN reservafechainicio AND reservafechafin)
+                                        AND  cabanaid = $cabanaid ) as tarde");
+
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+
+        return $resultado[0][0];
+    }
+
+    public function obtenerDisponibilidadNoche($fecha, $cabanaid)
+    {
+        $consulta = $this->db->prepare("SELECT NOT EXISTS 
+                                            (select * from tbreserva where reservahorainicio < '05:59:00' 
+                                            AND ('$fecha' BETWEEN reservafechainicio AND reservafechafin)
+                                            AND  cabanaid =  $cabanaid ) as noche");
+
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+
+        return $resultado[0][0];
+    }
 }
