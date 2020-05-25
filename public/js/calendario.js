@@ -72,10 +72,23 @@ function showCalendar(month, year) {
                 row.appendChild(cell);
 
                 //Obtiene el dia seleccionado
+
+                cell.onmouseleave = function(){
+
+                    cell.style.backgroundColor  = 'white';
+                };
+
+
+                cell.onmouseover = function(){
+
+                    cell.style.backgroundColor  = 'gray';
+                };
+
+                
                 cell.addEventListener("click", function () {
 
                     let div = document.getElementById("diaSeleccionado");
-
+                    
 
                     var parametros = {
                         'cabanaid': 1,
