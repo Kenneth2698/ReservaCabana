@@ -269,11 +269,9 @@ class ReservaBusiness
         $fecha = $_POST['year'] . "-" . $_POST['month'] . "-" . $_POST['day'];
         $cabanaid = $_POST['cabanaid'];
 
-
         $reservaData = new ReservaData();
 
         $disponibilidadManana = $reservaData->obtenerDisponibilidadManana($fecha, $cabanaid);
-
         $disponibilidadTarde = $reservaData->obtenerDisponibilidadTarde($fecha, $cabanaid);
         $disponibilidadNoche = $reservaData->obtenerDisponibilidadNoche($fecha, $cabanaid);
 

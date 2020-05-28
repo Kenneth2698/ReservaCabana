@@ -34,17 +34,11 @@
         </tbody>
       </table>
 
-      <div class="form-inline">
-
-        <button class="btn btn-outline-primary col-sm-6" id="previous" onclick="previous()">Mes anterior</button>
-
-        <button class="btn btn-outline-primary col-sm-6" id="next" onclick="next()">Mes siguiente</button>
-      </div>
       <br />
-      
+
       <form class="form-inline">
-        
-        <label class="lead mr-2 ml-2" for="month">Ir a: </label>
+
+
         <select class="form-control col-sm-4" name="month" id="month" onchange="jump()">
           <option value=0>Enero</option>
           <option value=1>Febrero</option>
@@ -105,14 +99,16 @@
           <option value=2030>2030</option>
         </select>
       </form>
-      
+
     </div>
   </div>
   <br><br>
+  <!--
   <div class="container" id="selectorDeTurno" style="display: none;">
     <div id="diaSeleccionado">
 
     </div>
+   
     <br>
     <center>
       <table class="table table-bordered">
@@ -138,11 +134,12 @@
       </table>
     </center>
     <br>
+
     <button class="btn btn-success">Avanzar</button>
     <br>
     <br>
   </div>
-
+-->
 
 
   <script src="public/js/calendario.js"></script>
