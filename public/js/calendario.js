@@ -49,11 +49,13 @@ function showCalendar(month, year) {
         // creates a table row
         let row = document.createElement("tr");
 
+
         //creating individual cells, filing them up with data.
         for (let j = 0; j < 7; j++) {
             if (i === 0 && j < firstDay) {
                 let cell = document.createElement("td");
                 let cellText = document.createTextNode("");
+
                 cell.appendChild(cellText);
                 row.appendChild(cell);
 
@@ -63,32 +65,92 @@ function showCalendar(month, year) {
             }
 
             else {
+
+
+
                 let cell = document.createElement("td");
-                let cellText = document.createTextNode(date);
-                if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
-                    cell.classList.add("bg-info");
-                } // color today's date
-                cell.appendChild(cellText);
+
+                //elementos para que marque el dia de hoy
+                let internrow0 = document.createElement("tr");
+                let dia = document.createElement("td");
+                let diatxt = document.createTextNode(date);
+                dia.appendChild(diatxt);
+                internrow0.appendChild(dia);
+
+                //elementos para que marque el turno de mañana
+                let internrow = document.createElement("tr");
+                let manana = document.createElement("td");
+                let mananatxt = document.createTextNode("Manana");
+                manana.appendChild(mananatxt);
+                internrow.appendChild(manana);
+
+                //elementos para que marque el turno de tarde
+                let internrow2 = document.createElement("tr");
+                let tarde = document.createElement("td");
+                let tardetxt = document.createTextNode("Tarde");
+                tarde.appendChild(tardetxt);
+                internrow2.appendChild(tarde);
+
+                //elementos para que marque el turno de noche
+                let internrow3 = document.createElement("tr");
+                let noche = document.createElement("td");
+                let nochetxt = document.createTextNode("Noche");
+                noche.appendChild(nochetxt);
+                internrow3.appendChild(noche);
+
+
+                var respuesta = { Manana: "1", Tarde: "1", Noche: "0" };//AQUI HAY QUE HACER LA LLAMADA CON AJAX , CONSULTANDO LA DISPONIBILIDAD DE LA FECHA ACTUAL DEL FOR
+                                                                        //La funcion de ajax esta abajo
+                if (respuesta.Manana == "1") {
+                    manana.style.backgroundColor = 'green';
+                } else {
+                    manana.style.backgroundColor = 'red';
+
+                }
+
+                if (respuesta.Tarde == "1") {
+                    tarde.style.backgroundColor = 'green';
+                } else {
+                    tarde.style.backgroundColor = 'red';
+
+                }
+
+
+                if (respuesta.Noche == "1") {
+                    noche.style.backgroundColor = 'green';
+                } else {
+                    noche.style.backgroundColor = 'red';
+
+                }
+                manana.style.color = 'white';
+                tarde.style.color = 'white';
+                noche.style.color = 'white';
+
+
+                cell.appendChild(internrow0);
+                cell.appendChild(internrow);
+                cell.appendChild(internrow2);
+                cell.appendChild(internrow3);
+
                 row.appendChild(cell);
 
-                //Obtiene el dia seleccionado
-
-                cell.onmouseleave = function(){
-
-                    cell.style.backgroundColor  = 'white';
-                };
+                date++;
+            }
 
 
-                cell.onmouseover = function(){
+        }
 
-                    cell.style.backgroundColor  = 'gray';
-                };
+        tbl.appendChild(row); // appending each row into calendar body.
 
-                
+    }
+
+}
+
+/*
                 cell.addEventListener("click", function () {
 
                     let div = document.getElementById("diaSeleccionado");
-                    
+
 
                     var parametros = {
                         'cabanaid': 1,
@@ -113,7 +175,7 @@ function showCalendar(month, year) {
 
                         }
                     );
-                    
+
                     div.innerHTML = 'Dia seleccionado: ' + cellText.nodeValue;
                     let turnos = document.getElementById("selectorDeTurno");
                     turnos.style.display = "block";
@@ -144,31 +206,4 @@ function showCalendar(month, year) {
                     }
 
 
-                });
-                date++;
-            }
-
-
-        }
-
-        tbl.appendChild(row); // appending each row into calendar body.
-
-    }
-
-}
-
-
-
-let turno1 = document.getElementById("turno1");
-let turno2 = document.getElementById("turno2");
-let turno3 = document.getElementById("turno3");
-
-turno1.addEventListener("click", function () {
-    //turno1.classList.add('bg-success');
-});
-turno2.addEventListener("click", function () {
-    //turno2.classList.add('bg-danger');
-});
-turno3.addEventListener("click", function () {
-    // turno3.classList.add('bg-warning');
-});
+                }); */
