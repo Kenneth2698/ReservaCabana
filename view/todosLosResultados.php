@@ -7,35 +7,47 @@
 
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
 </head>
 
 <body>
     <br><br><br>
     <div class="container">
+        <?php $contador = 0; ?>
+        <?php foreach ($vars as $item) { ?>
 
+            <div class="row">
+                <form action="?controlador=Reserva&accion=realizarReservaEspecifica" method="POST">
+                    <h1><?php echo $item["cabananombre"] ?></h1>
+                    <h4>Ubicada en <?php echo $item["direccionprovincia"] . ", " . $item["direccioncanton"] . ", " . $item["direcciondistrito"] . ", " . $item["direccionotrasenas"] . "" ?></h4>
+                    <br>
+                    <?php foreach ($item['lista' . $contador] as $caracteristica) { ?>
 
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Seleccionar</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <?php foreach($vars as $item){?>
-                    <td><?php echo $item["cabanaid"]?></td>
-                    <td><?php echo $item["cabananombre"]?></td>
-                    <form action="?controlador=Reserva&accion=realizarReservaEspecifica">
-                    <td><a href="" class="btn btn-success">Seleccionar</a></td>
-                    </form>
+                        <div class="col-sm">
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title"><?php echo $caracteristica[1]." : ".$caracteristica[2] ?></h5>
+                                    
+                                </div>
+                                <img src="./public/imgs/<?php echo $caracteristica[3] ?>" class="card-img-top" alt="...">
+                            </div>
+                        </div>
+                    <?php } ?><br>
+                    <input type="hidden" id="cabanaid" name="cabanaid" value="<?php echo $item['cabanaid'] ?>">
+                    <input type="hidden" id="cabananombre" name="cabananombre" value="<?php echo $item['cabananombre'] ?>">
+                    <input type="hidden" id="fecha1" name="fecha1" value="<?php echo $item['fecha1']  ?>">
+                    <input type="hidden" id="fecha2" name="fecha2" value="<?php echo $item['fecha2']  ?>">
+                    <input type="hidden" id="cantidad" name="cantidad" value="<?php echo $item['cantidad']  ?>">
+
                     
-                    <?php }?>
-                </tr>
-                
-            </tbody>
-        </table>
+                    <center>
+                        <button class="btn-success">Seleccionar</button>
+                    </center>
+                </form>
+            </div>
+
+            <?php $contador++; ?>
+        <?php } ?>
     </div>
 
     <!-- Jquery JS-->

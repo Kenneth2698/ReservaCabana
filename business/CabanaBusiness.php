@@ -19,7 +19,7 @@ if (!isset($_SESSION['indice'])) {
     $_SESSION['indice'] = 0;
 }
 
-if(!isset($_SESSION['lista_cabanas'])){
+if (!isset($_SESSION['lista_cabanas'])) {
     $_SESSION['lista_cabanas'] = array();
 }
 
@@ -276,7 +276,7 @@ class CabanaBusiness
         }
         $cabanaData = new CabanaData();
 
-        $cabanaData->insertarCaracteristicaImagen($codigos, ltrim($nombres, ','), ltrim($rutas, ','),$caracteristicaid);
+        $cabanaData->insertarCaracteristicaImagen($codigos, ltrim($nombres, ','), ltrim($rutas, ','), $caracteristicaid);
 
         $resultado['cabanas'] = $cabanaData->obtenerCabanasCaracteristicas();
 
@@ -339,7 +339,8 @@ class CabanaBusiness
     }
 
 
-    public function seleccionarCabanaParaMantenerDireccion(){
+    public function seleccionarCabanaParaMantenerDireccion()
+    {
         $datos['cabanaid'] = $_POST['cabanaid'];
         $datos['accion'] = "actualizareliminar";
         $this->view->show("verCabanasActualizarDireccion.php", $datos);
@@ -376,7 +377,7 @@ class CabanaBusiness
 
         $cabanaData = new CabanaData();
         $resultado['propietarios'] = $cabanaData->obtenerPropietarios();
-        
+
 
         $resultado['accion'] = 'cargarpropietarios';
 
@@ -385,18 +386,18 @@ class CabanaBusiness
 
     public function cargarPropietarioConId()
     {
-        
+
         $cabanaData = new CabanaData();
         $propietarioid = $_POST['propietarioid'];
-        
+
         $resultado['propietario'] = $cabanaData->obtenerPropietarioInfo($propietarioid);
-        
+
         $resultado['accion'] = 'actualizareliminarpropietario';
 
         $this->view->show("crearPropietarioView.php", $resultado);
     }
 
-  
+
 
     public function seleccionarCabanaParaPropietario()
     {
@@ -419,7 +420,8 @@ class CabanaBusiness
         $this->view->show('menuServicios.php', null);
     }
 
-    public function actualizarPropietario(){
+    public function actualizarPropietario()
+    {
         $id = $_POST['propietarioid'];
         $nombre = $_POST['nombre'];
         $cuenta = $_POST['cuenta'];
@@ -429,11 +431,12 @@ class CabanaBusiness
 
         $cabanaData = new CabanaData();
 
-        $cabanaData->actualizarPropietario($nombre, $cuenta, $correo, $telefono,$id);
+        $cabanaData->actualizarPropietario($nombre, $cuenta, $correo, $telefono, $id);
 
         $this->view->show('menuServicios.php', null);
     }
-    public function actualizarDireccion(){
+    public function actualizarDireccion()
+    {
         $id = $_POST['direccionid'];
         $provincia = $_POST['direccionprovincia'];
         $canton = $_POST['direccioncanton'];
@@ -443,14 +446,15 @@ class CabanaBusiness
 
         $cabanaData = new CabanaData();
 
-        $cabanaData->actualizarDireccion($provincia, $canton, $distrito, $senas,$id);
+        $cabanaData->actualizarDireccion($provincia, $canton, $distrito, $senas, $id);
 
         $this->view->show('menuServicios.php', null);
     }
-    public function eliminarPropietario(){
+    public function eliminarPropietario()
+    {
 
         $id = $_POST['propietarioid'];
-    
+
         $cabanaData = new CabanaData();
 
         $cabanaData->eliminarPropietario($id);
@@ -458,10 +462,11 @@ class CabanaBusiness
         $this->view->show('menuServicios.php', null);
     }
 
-    public function eliminarDireccion(){
+    public function eliminarDireccion()
+    {
 
         $id = $_POST['direccionid'];
-    
+
         $cabanaData = new CabanaData();
 
         $cabanaData->eliminarDireccion($id);
@@ -469,7 +474,7 @@ class CabanaBusiness
         $this->view->show('menuServicios.php', null);
     }
 
-    
+
     public function cargarVerDireccion()
     {
 
@@ -481,12 +486,12 @@ class CabanaBusiness
 
     public function cargarDireccionConId()
     {
-        
+
         $cabanaData = new CabanaData();
         $cabanaid = $_POST['cabanaid'];
-        
+
         $resultado['direccion'] = $cabanaData->obtenerDireccionInfo($cabanaid);
-        
+
         $resultado['accion'] = 'actualizareliminardireccion';
 
         $this->view->show("verCabanasActualizarDireccion.php", $resultado);
@@ -495,43 +500,49 @@ class CabanaBusiness
 
 
     //Propietario y cuenta bancaria
-    public function cargarFormPropietarioCuenta(){
+    public function cargarFormPropietarioCuenta()
+    {
         $cabana = new CabanaData();
-        $data["propietarios"]= $cabana->obtenerPropietarios();
+        $data["propietarios"] = $cabana->obtenerPropietarios();
         $this->view->show("registrarPropietarioCuenta.php", $data);
     }
 
-    public function insertarPropietarioCuenta(){
+    public function insertarPropietarioCuenta()
+    {
         $cabana = new CabanaData();
         $propietarioid = $_POST['propietario'];
         $propietariocuentabancariabanconombre = $_POST['banco'];
         $propietariocuentabancariabanconumerocuenta = $_POST['cuenta'];
         $propietariocuentabancariaestado = $_POST['estado'];
-        $cabana->insertarPropietarioCuenta($propietarioid,$propietariocuentabancariabanconombre,$propietariocuentabancariabanconumerocuenta,$propietariocuentabancariaestado);
+        $cabana->insertarPropietarioCuenta($propietarioid, $propietariocuentabancariabanconombre, $propietariocuentabancariabanconumerocuenta, $propietariocuentabancariaestado);
         $this->view->show("indexView.php");
     }
 
-    public function cargarSeleccionarPropietarioCuenta(){
+    public function cargarSeleccionarPropietarioCuenta()
+    {
         $cabana = new CabanaData();
-        $data["propietarios"]= $cabana->obtenerPropietarios();
+        $data["propietarios"] = $cabana->obtenerPropietarios();
         $this->view->show("seleccionarPropietarioCuenta.php", $data);
     }
 
-    public function cargarListaCuentasPropietario(){
+    public function cargarListaCuentasPropietario()
+    {
         $cabana = new CabanaData();
         $idPropietario = $_POST['idpropietario'];
-        $data["cuentas"]= $cabana->obtenerCuentas($idPropietario);
+        $data["cuentas"] = $cabana->obtenerCuentas($idPropietario);
         $this->view->show("verListaCuentas.php", $data);
     }
 
-    public function eliminarCuentaPropietario(){
+    public function eliminarCuentaPropietario()
+    {
         $cabana = new CabanaData();
         $idCuenta = $_POST['idCuenta'];
         $cabana->eliminarCuentaPropietario($idCuenta);
         $this->view->show("menuServicios.php");
     }
 
-    public function cargarActualizarCuenta(){
+    public function cargarActualizarCuenta()
+    {
         $idCuenta = $_POST['idCuenta'];
         $numeroCuenta = $_POST['cuenta'];
         $estadoCuenta = $_POST['estado'];
@@ -543,24 +554,26 @@ class CabanaBusiness
         $this->view->show("actualizarCuenta.php", $datos);
     }
 
-    public function actualizarCuenta(){
+    public function actualizarCuenta()
+    {
         $cabana = new CabanaData();
         $idCuenta = $_POST['idCuenta'];
         $numeroCuenta = $_POST['cuenta'];
         $banco = $_POST['banco'];
         $estadoCuenta = $_POST['estado'];
-        $cabana->actualizarCuenta($idCuenta,$numeroCuenta,$estadoCuenta,$banco);
+        $cabana->actualizarCuenta($idCuenta, $numeroCuenta, $estadoCuenta, $banco);
         $this->view->show("menuServicios.php");
     }
 
-    public function listarCabanaTarifa(){
+    public function listarCabanaTarifa()
+    {
         $cabanaData = new CabanaData();
 
         $resultado['cabanas'] = $cabanaData->obtenerCabanas();
 
         $_SESSION['lista_cabanas'] = $resultado['cabanas'];
 
-        $this->view->show("seleccionarCabanaTarifa.php",$resultado);
+        $this->view->show("seleccionarCabanaTarifa.php", $resultado);
     }
 
     public function insertarTarifa()
@@ -568,48 +581,58 @@ class CabanaBusiness
         $cabanaData = new CabanaData();
         $idcabana = $_POST['select_cabanas'];
         $monto = $_POST['tarifamonto'];
-        $cabanaData-> insertarTarifa($idcabana,$monto);
+        $cabanaData->insertarTarifa($idcabana, $monto);
 
         $resultado['tarifas'] = $cabanaData->obtenerTarifas();
-        
-        $this->view->show("verTarifa.php",$resultado);
+
+        $this->view->show("verTarifa.php", $resultado);
     }
 
-    public function cargarVerTarifa(){
+    public function cargarVerTarifa()
+    {
         $cabanaData = new CabanaData();
-    
+
         $resultado['tarifas'] = $cabanaData->obtenerTarifas();
-        
-        $this->view->show("verTarifa.php",$resultado);
+
+        $this->view->show("verTarifa.php", $resultado);
     }
 
-    public function eliminarTarifa(){
+    public function eliminarTarifa()
+    {
         $cabanaData = new CabanaData();
         $cabanaData->eliminarTarifa($_POST['cabanatarifaid']);
 
         $resultado['tarifas'] = $cabanaData->obtenerTarifas();
-        
-        $this->view->show("verTarifa.php",$resultado);
+
+        $this->view->show("verTarifa.php", $resultado);
     }
 
-    public function cargarActualizarTarifa(){
+    public function cargarActualizarTarifa()
+    {
         $idtarifa = $_POST['cabanatarifaid'];
         $cabana = $_POST['cabananombre'];
         $monto = $_POST['cabanatarifamonto'];
-        
+
         $datos['idtarifa'] = $idtarifa;
         $datos['cabana'] = $cabana;
         $datos['monto'] = $monto;
-        
-        $this->view->show("actualizarTarifa.php",$datos);
+
+        $this->view->show("actualizarTarifa.php", $datos);
     }
 
-    public function actualizarTarifa(){
+    public function actualizarTarifa()
+    {
         $cabanaData = new CabanaData();
-        $cabanaData->actualizarTarifa($_POST['cabanatarifaid'],$_POST['cabanatarifamonto']);
+        $cabanaData->actualizarTarifa($_POST['cabanatarifaid'], $_POST['cabanatarifamonto']);
 
         $resultado['tarifas'] = $cabanaData->obtenerTarifas();
-        
-        $this->view->show("verTarifa.php",$resultado);
+
+        $this->view->show("verTarifa.php", $resultado);
     }
+
+
+
+
+
+  
 }
