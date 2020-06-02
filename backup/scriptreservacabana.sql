@@ -299,7 +299,7 @@ CREATE TABLE `tbreserva` (
   `reservaclienteid` int(11) DEFAULT NULL,
   `reservamonto` int(11) DEFAULT NULL,
   PRIMARY KEY (`reservaid`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -308,7 +308,7 @@ CREATE TABLE `tbreserva` (
 
 LOCK TABLES `tbreserva` WRITE;
 /*!40000 ALTER TABLE `tbreserva` DISABLE KEYS */;
-INSERT INTO `tbreserva` VALUES (10,1,'MayFriSat15','2020-05-22','2020-05-23','01:00:00','01:00:00',2,'tarjeta',5,NULL),(11,1,'MaySatSun15','2020-05-23','2020-05-24','02:00:00','02:00:00',2,'tarjeta',5,NULL);
+INSERT INTO `tbreserva` VALUES (12,1,'MaySunTue25','2020-05-24','2020-05-26','21:00:00','22:00:00',2,'tarjeta',5,NULL),(13,1,'MayThuSun35','2020-05-28','2020-05-31','01:00:00','04:00:00',2,'tarjeta',5,NULL);
 /*!40000 ALTER TABLE `tbreserva` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -477,4 +477,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-22 17:07:26
+-- Dump completed on 2020-05-29 17:30:31
