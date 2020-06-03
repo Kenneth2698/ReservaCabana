@@ -29,7 +29,7 @@ function previous() {
 
 
 function showCalendar(month, year) {
-
+    var cabanaid = document.getElementById("cabanaid").value;
     let firstDay = (new Date(year, month)).getDay();
     let daysInMonth = 32 - new Date(year, month, 32).getDate();
 
@@ -81,28 +81,69 @@ function showCalendar(month, year) {
                 let internrow = document.createElement("tr");
                 let manana = document.createElement("td");
                 let mananatxt = document.createTextNode("Manana");
+                manana.id = "M" + date;
+
                 manana.appendChild(mananatxt);
                 internrow.appendChild(manana);
+
+
 
                 //elementos para que marque el turno de tarde
                 let internrow2 = document.createElement("tr");
                 let tarde = document.createElement("td");
                 let tardetxt = document.createTextNode("Tarde");
+                tarde.id = "T" + date;
+
                 tarde.appendChild(tardetxt);
                 internrow2.appendChild(tarde);
+
+
+
+
+
 
                 //elementos para que marque el turno de noche
                 let internrow3 = document.createElement("tr");
                 let noche = document.createElement("td");
                 let nochetxt = document.createTextNode("Noche");
+                noche.id = "N" + date;
+
                 noche.appendChild(nochetxt);
                 internrow3.appendChild(noche);
 
 
-                var respuesta = { Manana: "1", Tarde: "1", Noche: "0" };//AQUI HAY QUE HACER LA LLAMADA CON AJAX , CONSULTANDO LA DISPONIBILIDAD DE LA FECHA ACTUAL DEL FOR
-                                                                        //La funcion de ajax esta abajo
+                var parametros = {
+                    'cabanaid': cabanaid,
+                    'day': date,
+                    'month': month + 1,
+                    'year': year,
+                };
+                var respuesta;
+                $.ajax(
+                    {
+
+                        data: parametros,
+                        url: '?controlador=Reserva&accion=verificarFechaCalendario',
+                        type: 'post',
+                        async: false,
+
+                        success: function (response) {
+
+                            respuesta = JSON.parse(response);
+
+                        },
+
+                    }
+                );
+
+
                 if (respuesta.Manana == "1") {
                     manana.style.backgroundColor = 'green';
+                    manana.addEventListener("click", function () {
+
+
+                        window.open("?controlador=Reserva&accion=reservarDesdeCalendario&cabanaid=" + cabanaid + "&codigo=" + manana.id, "_self");
+                    });
                 } else {
                     manana.style.backgroundColor = 'red';
 
@@ -110,6 +151,10 @@ function showCalendar(month, year) {
 
                 if (respuesta.Tarde == "1") {
                     tarde.style.backgroundColor = 'green';
+                    tarde.addEventListener("click", function () {
+
+                        window.open("?controlador=Reserva&accion=reservarDesdeCalendario&cabanaid=" + cabanaid + "&codigo=" + tarde.id, "_self");
+                    });
                 } else {
                     tarde.style.backgroundColor = 'red';
 
@@ -118,6 +163,11 @@ function showCalendar(month, year) {
 
                 if (respuesta.Noche == "1") {
                     noche.style.backgroundColor = 'green';
+                    noche.addEventListener("click", function () {
+
+                        window.open("?controlador=Reserva&accion=reservarDesdeCalendario&cabanaid=" + cabanaid + "&codigo=" + noche.id, "_self");
+
+                    });
                 } else {
                     noche.style.backgroundColor = 'red';
 
@@ -140,70 +190,13 @@ function showCalendar(month, year) {
 
         }
 
-        tbl.appendChild(row); // appending each row into calendar body.
+        tbl.appendChild(row);
 
     }
 
 }
 
-/*
-                cell.addEventListener("click", function () {
+function iniciarReserva(codigo) {
+    alert(codigo);
+}
 
-                    let div = document.getElementById("diaSeleccionado");
-
-
-                    var parametros = {
-                        'cabanaid': 1,
-                        'day': cellText.nodeValue,
-                        'month': month + 1,
-                        'year': year,
-                    };
-                    var respuesta;
-                    $.ajax(
-                        {
-
-                            data: parametros,
-                            url: '?controlador=Reserva&accion=verificarFechaCalendario',
-                            type: 'post',
-                            async: false,
-
-                            success: function (response) {
-
-                                respuesta = JSON.parse(response);
-
-                            },
-
-                        }
-                    );
-
-                    div.innerHTML = 'Dia seleccionado: ' + cellText.nodeValue;
-                    let turnos = document.getElementById("selectorDeTurno");
-                    turnos.style.display = "block";
-
-                    let manana = document.getElementById("turno1");
-                    let tarde = document.getElementById("turno2");
-                    let noche = document.getElementById("turno3");
-
-
-                    if (respuesta.Manana == "1") {
-                        manana.style.backgroundColor  = 'green';
-                    } else {
-                        manana.style.backgroundColor  = 'red';
-                    }
-
-
-                    if (respuesta.Tarde == "1") {
-                        tarde.style.backgroundColor  = 'green';
-                    } else {
-                        tarde.style.backgroundColor  = 'red';
-                    }
-
-
-                    if (respuesta.Noche == "1") {
-                        noche.style.backgroundColor  = 'green';
-                    } else {
-                        noche.style.backgroundColor  = 'red';
-                    }
-
-
-                }); */

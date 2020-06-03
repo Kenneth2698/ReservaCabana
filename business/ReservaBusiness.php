@@ -250,7 +250,7 @@ class ReservaBusiness
             $res[0]['fecha1'] =  $fecha1;
             $res[0]['fecha2'] =  $fecha2;
             $res[0]['cantidad'] = $cantidad;
-            $res['cabanas']['bandera'] = true;
+            $res['cabanas']['bandera'] = 1;
 
             $this->view->show("crearReserva.php", $res);
         } else {
@@ -259,9 +259,13 @@ class ReservaBusiness
     }
 
 
-    public function mostrarCalendario()
+    public function cargarCabanasParaCalendario()
     {
-        $this->view->show("test.php", $res = null);
+
+        $cabanaData = new CabanaData();
+        $resultado['cabanas'] = $cabanaData->obtenerCabanas();
+        
+        $this->view->show("verCabanasCalendario.php", $resultado);
     }
 
     public function verificarFechaCalendario()
@@ -280,9 +284,53 @@ class ReservaBusiness
         echo json_encode($respuesta);
     }
 
-    public function test()
+    public function seleccionarCabanaParaCalendario()
     {
-        unset($_SESSION['test']);
-        echo $_SESSION['test'];
+        $resultado['cabanaid'] = $_POST['cabanaid'];
+        $this->view->show("calendario.php", $resultado);
+    }
+
+    public function reservarDesdeCalendario()
+    {
+        $cabanaid =  $_GET['cabanaid'];
+        $codigo =  $_GET['codigo'];
+        $dia=substr($codigo,1,strlen($codigo));
+
+        if(strlen($dia)==1){
+            $dia = "0".$dia;
+        }
+
+
+
+
+        $res[0]['fecha1'] =  date("Y-m-").$dia;
+        $res[0]['fecha2'] =   date("Y-m-").$dia;
+
+
+        $res[0]['hora1'] = "";
+        $res[0]['hora2'] = "";
+
+        switch ($codigo[0]) {
+            case "M":
+                $res[0]['hora1'] = "06:00:00";
+                $res[0]['hora2'] = "11:59:00";
+                break;
+
+            case "T":
+                $res[0]['hora1'] = "12:00:00";
+                $res[0]['hora2'] = "17:59:00";
+                break;
+
+            case "N":
+                $res[0]['hora1'] = "18:00:00";
+                $res[0]['hora2'] = "23:59:00";
+                break;
+        }
+
+        $res[0]['cabanaid'] = $cabanaid;
+        $res[0]['cantidad'] = 0;
+        $res['cabanas']['bandera'] = 2;
+
+        $this->view->show("crearReserva.php", $res);
     }
 }
