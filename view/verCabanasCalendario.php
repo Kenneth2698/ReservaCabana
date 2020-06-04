@@ -15,6 +15,7 @@
 
     <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
         <div class="container">
+        <h2>Seleccionar cabaña para ver el calendario</h2>
             <form method="POST" action="?controlador=Reserva&accion=seleccionarCabanaParaCalendario">
 
             <label for="cabanaid">Nombre de la cabaña</label>
