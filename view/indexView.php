@@ -1,37 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<body>
 <?php
-//include_once 'public/navbarAdmin.php';
+include_once './public/navbarCliente.php';
 ?>
+<br><br>
+<div class="container">
+    <div class="row">
+        <div class="col col-8" style="border: 2px solid;">
+            <article>
+                <section>
+                    Contenido...
+                </section>
+            </article>
+        </div>
+        <div class="col col-4">
+            <div class="container-fluid">
+                <aside style="font-style:italic;width:80%;border:2px solid; float:right !important; padding-left: 20%;padding-right: 10%">
+                    <h5>Ofertas</h5>
+                    
+                    <?php 
+                    require_once 'data/OfertaData.php';
+                    $ofertaData = new OfertaData();
+                    $resultado["ofertas"] = $ofertaData->obtenerOfertas();
+                    if($resultado != NULL){
 
-<div class="page-wrapper bg-gra-03 p-t-45 p-b-50" >
-    <form method="POST" action="?controlador=Usuario&accion=inicioSesion">
-
-    <h3>Usuario</h3>
-    <input class="input--style-5" type="text" id="usuario" name="usuario">
-
-    <h3>Contraseña</h3>
-    <input class="input--style-5" type="password"  id="contra" name="contra">
-
-    <button class="btn btn--radius-2 btn--red" type="submit">Ingresar</button>
-    </form>
+                        foreach($resultado["ofertas"] as $oferta){?>
+                            <h6><?php echo $oferta["ofertanombre"]?></h6>
+                            <h6>Inicio: <?php echo $oferta["ofertafechainicio"]?></h6>
+                            <h6>Fin: <?php echo $oferta["ofertafechafin"]?></h6>
+                            <br>
+                            <h7>Precio: <b><?php echo $oferta["ofertaprecio"]?></b></h7>
+                            <hr>
+                        <?php }
+                        }?>                        
+                </aside>
+            </div>
+        </div>
+    </div>
 </div>
-
-
-
-<!-- Jquery JS-->
-<script src="public/vendor/jquery/jquery.min.js"></script>
-<!-- Vendor JS-->
-<script src="public/vendor/select2/select2.min.js"></script>
-<script src="public/vendor/datepicker/moment.min.js"></script>
-<script src="public/vendor/datepicker/daterangepicker.js"></script>
-
-<!-- Main JS-->
-<script src="public/js/global.js"></script>
-
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
-
-</html>
-<!-- end document-->
