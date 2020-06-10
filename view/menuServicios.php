@@ -94,6 +94,11 @@
     <li><a href="?controlador=Oferta&accion=cargarCrearOferta">Insertar ofertas</a></li>
     <li><a href="?controlador=Oferta&accion=verOfertas">Ver ofertas</a></li>
     </ul>
+    <h2 class="title">CRUD Plan Socio</h2>
+    <ul>
+    <li><a href="?controlador=Plan&accion=mostrarCrearPlan">Crear plan</a></li>
+    <li><a href="?controlador=Plan&accion=mostrarVerPlan">Ver planes</a></li>
+    </ul>
     <h2 class="title">CERRAR SESION</h2>
     <ul>
     <li><a href="?controlador=Usuario&accion=cerrarSesion">Salir</a></li>

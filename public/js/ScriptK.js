@@ -25,6 +25,24 @@ function agregarCriterioValorPrioridad(criterio, valor, prioridad) {
 }
 
 
+function agregarRestriccion(idTemporada){
+    var parametros = {
+        'idTemporada': idTemporada,
+    };
+
+    $.ajax(
+        {
+            data: parametros,
+            url: '?controlador=Plan&accion=agregarRestriccion',
+            type: 'post',
+        }
+    );
+
+    var $mensaje = $("#mensaje");
+    var text = "Se agregó correctamente";
+    $mensaje.text(text);
+}
+
 function obtenerValoresDeTabla(idtabla) {
     let criterios = "";
     var valores = "";
