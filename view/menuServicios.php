@@ -89,6 +89,15 @@
     <li><a href="?controlador=Cabana&accion=cargarFormPropietarioCuenta">Insertar cuenta a propietarios</a></li>
     <li><a href="?controlador=Cabana&accion=cargarSeleccionarPropietarioCuenta">Ver cuentas</a></li>
     </ul>
+    <h2 class="title">CRUD DE OFERTAS</h2>
+    <ul>
+    <li><a href="?controlador=Oferta&accion=cargarCrearOferta">Insertar ofertas</a></li>
+    <li><a href="?controlador=Oferta&accion=verOfertas">Ver ofertas</a></li>
+    </ul>
+    <h2 class="title">CERRAR SESION</h2>
+    <ul>
+    <li><a href="?controlador=Usuario&accion=cerrarSesion">Salir</a></li>
+    </ul>
 </div>
 
 <!-- Jquery JS-->

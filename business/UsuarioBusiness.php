@@ -49,5 +49,11 @@ class UsuarioBusiness
     }
 
 
+    //Carga el form para iniciar sesion
+    public function cargarInicioSesionAdmin(){
+        $this->view->show("iniciarSesionAdmin.php", null);
+    }
+
+
 
 }
