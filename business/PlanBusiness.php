@@ -77,7 +77,35 @@ class PlanBusiness
         $planData = new PlanData();
         $resultado['planes'] = $planData->obtenerPlanes();
 
+        $contador = 0;
+        $restriccionesArray = array();
 
+        foreach ($resultado['planes'] as $restricciones) {
+            $restriccionesArray[$contador] = explode(',', $restricciones['planrestricciones']);
+            $contador++;
+        }
+
+        $fechas = array();
+        $contadorRestricciones = 0;
+        foreach ($restriccionesArray as $restricciones) {
+            $contadorFechas = 0;
+            foreach ($restricciones as $r) {
+                $fechas[$contadorRestricciones][$contadorFechas] = array();
+                $fechas[$contadorRestricciones][$contadorFechas] = $planData->obtenerFechasTemmporada($r);
+                $contadorFechas++;
+            }
+            $contadorRestricciones++;
+        }
+        $resultado['fechas'] = $fechas;
+
+
+        $this->view->show("verPlanesView.php", $resultado);
+    }
+
+    public function mostrarAdquirirPlan()
+    {
+        $planData = new PlanData();
+        $resultado['planes'] = $planData->obtenerPlanes();
 
         $contador = 0;
         $restriccionesArray = array();
@@ -90,21 +118,97 @@ class PlanBusiness
         $fechas = array();
         $contadorRestricciones = 0;
         foreach ($restriccionesArray as $restricciones) {
-            $contadorFechas=0;
+            $contadorFechas = 0;
             foreach ($restricciones as $r) {
                 $fechas[$contadorRestricciones][$contadorFechas] = array();
-                $fechas[$contadorRestricciones][$contadorFechas]= $planData->obtenerFechasTemmporada($r);
+                $fechas[$contadorRestricciones][$contadorFechas] = $planData->obtenerFechasTemmporada($r);
                 $contadorFechas++;
             }
             $contadorRestricciones++;
         }
-        $resultado['fechas']=$fechas;
+        $resultado['fechas'] = $fechas;
 
-        
-       $this->view->show("verPlanesView.php", $resultado);
+
+        $resultado['clientes'] = $planData->obtenerClientes();
+
+
+        $this->view->show("adquirirPlanView.php", $resultado);
+    }
+
+
+    public function adquirirPlan()
+    {
+        $clienteid = $_POST['select_clientes'];
+
+        $planid =  $_POST['select_planes'];
+
+        $planData = new PlanData();
+        $planData->insertarCompraPlan($clienteid, $planid);
+        $compraid = $planData->obtenerUltimaCompra($clienteid);
+        $montoYCuotas = $planData->obtenerMontoYCuotas($planid);
+
+        $monto = (int) $montoYCuotas[0];
+        $cuotas = $montoYCuotas[1];
+        $fechaCobro = date("Y-m-d", strtotime(date('Y-m-d') . "+ 1 month"));
+
+        for ($i = 0; $i < $cuotas; $i++) {
+
+            $planData->registrarAbonosPendientes($compraid, $fechaCobro, $monto);
+
+            $fechaCobro = date("Y-m-d", strtotime($fechaCobro . "+ 1 month"));
+        }
+
+
+
+        ////AQUI ES PARA VOLVER A CARGAR LA VISTA PARA ELEGIR UN PLAN
+        $resultado['planes'] = $planData->obtenerPlanes();
+
+        $contador = 0;
+        $restriccionesArray = array();
+
+        foreach ($resultado['planes'] as $restricciones) {
+            $restriccionesArray[$contador] = explode(',', $restricciones['planrestricciones']);
+            $contador++;
+        }
+
+        $fechas = array();
+        $contadorRestricciones = 0;
+        foreach ($restriccionesArray as $restricciones) {
+            $contadorFechas = 0;
+            foreach ($restricciones as $r) {
+                $fechas[$contadorRestricciones][$contadorFechas] = array();
+                $fechas[$contadorRestricciones][$contadorFechas] = $planData->obtenerFechasTemmporada($r);
+                $contadorFechas++;
+            }
+            $contadorRestricciones++;
+        }
+        $resultado['fechas'] = $fechas;
+
+
+        $resultado['clientes'] = $planData->obtenerClientes();
+
+
+        $this->view->show("adquirirPlanView.php", $resultado);
+    }
+
+    public function seleccionarClienteVerAbonos()
+    {
+
+
+        $planData = new PlanData();
+        $resultado['clientes'] = $planData->obtenerClientes();
+
+
+        $this->view->show("seleccionarClienteVerAbonos.php", $resultado);
+    }
+
+    public function verAbonos()
+    {
+
+        $clienteid = $_POST['select_clientes'];
+
+        $planData = new PlanData();
+        $resultado['abonos'] = $planData->obtenerTodosLosAbonos($clienteid);
+        $this->view->show("verAbonosCliente.php", $resultado);
     }
 }
-
-
-
-
