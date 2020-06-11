@@ -51,7 +51,8 @@ class PlanData
         return $resultado;
     }
 
-    public function obtenerFechasTemmporada($r){
+    public function obtenerFechasTemmporada($r)
+    {
         $consulta = $this->db->prepare("SELECT tbtemporadafechainicio,tbtemporadafechafinal FROM tbtemporada WHERE tbtemporadaid = $r");
 
 
@@ -60,6 +61,91 @@ class PlanData
         $consulta->CloseCursor();
 
 
-        return "Del ".$resultado[0][0]." al ".$resultado[0][1];
+        return "Del " . $resultado[0][0] . " al " . $resultado[0][1];
+    }
+
+
+    public function obtenerClientes()
+    {
+
+        $consulta = $this->db->prepare('
+                                        SELECT clienteid,clientenombrecompleto
+                                        FROM tbcliente');
+
+
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->CloseCursor();
+
+
+        return $resultado;
+    }
+
+    public function insertarCompraPlan($clienteid, $planid)
+    {
+
+        $consulta = $this->db->prepare("
+            INSERT INTO tbcompraplan (clienteid,planid)  VALUES ( $clienteid,$planid);");
+
+
+        $consulta->execute();
+        $consulta->CloseCursor();
+    }
+
+
+    public function obtenerUltimaCompra($clienteid)
+    {
+
+        $consulta = $this->db->prepare("SELECT MAX(compraplanid) as id FROM tbcompraplan WHERE clienteid = $clienteid");
+
+
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->CloseCursor();
+
+
+        return $resultado[0][0];
+    }
+
+    public function obtenerMontoYCuotas($planid)
+    {
+
+        $consulta = $this->db->prepare("SELECT (planmonto/plannumerocuotas) AS montomensual,plannumerocuotas FROM tbplan WHERE planid = $planid");
+
+
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->CloseCursor();
+
+
+        return $resultado[0];
+    }
+
+    public function registrarAbonosPendientes($compraid, $fechaCobro, $monto)
+    {
+
+        $fechaAbono = 'NULL';
+        $pagado = 0;
+
+        $consulta = $this->db->prepare("INSERT INTO tbabonoplan (compraplanid,fechacobro,fechaabono,pagado,monto)  VALUES ( $compraid,'$fechaCobro',$fechaAbono,$pagado,$monto);");
+        $consulta->execute();
+        $consulta->CloseCursor();
+    }
+
+    public function obtenerTodosLosAbonos($clienteid)
+    {
+
+
+        $consulta = $this->db->prepare("SELECT c.planid, a.fechacobro,a.fechaabono,a.pagado,a.monto FROM tbabonoplan a
+                                        JOIN tbcompraplan c
+                                        ON a.compraplanid = c.compraplanid
+                                        WHERE c.clienteid = $clienteid
+                                        ");
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->CloseCursor();
+
+
+        return $resultado;
     }
 }
