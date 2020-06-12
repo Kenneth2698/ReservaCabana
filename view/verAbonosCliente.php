@@ -49,7 +49,11 @@
                             }
                             ?>
                         </td>
-                        <td><a href="?controlador=Plan&accion=abonarPlan&planid=<?php echo $abonos['abonoplanid']?>" class="btn">Abonar</a></td>
+                        <?php
+                            if ($abonos['pagado'] != 1) { ?>
+                                <td><a href="?controlador=Plan&accion=abonarPlan&planid=<?php echo $abonos['abonoplanid']?>" class="btn">Abonar</a></td>
+                           <?php } ?>
+                        
                     </tr>
 
 
