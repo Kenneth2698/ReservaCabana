@@ -17,7 +17,7 @@
       <a class="nav-item nav-link" href="?controlador=Usuario&accion=cargarInicioSesionAdmin">Admin</a>
       <a class="nav-item nav-link" href="?controlador=Plan&accion=mostrarAdquirirPlan">Adquirir plan</a>
       <a class="nav-item nav-link" href="?controlador=Plan&accion=seleccionarClienteVerAbonos">Abonos pendientes</a>
-      <a class="nav-item nav-link" href="#">Morosidad</a>
+      <a class="nav-item nav-link" href="?controlador=Plan&accion=seleccionarClienteTransferir">Transferir plan</a>
     </div>
   </div>
 </nav>

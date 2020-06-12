@@ -211,4 +211,56 @@ class PlanBusiness
         $resultado['abonos'] = $planData->obtenerTodosLosAbonos($clienteid);
         $this->view->show("verAbonosCliente.php", $resultado);
     }
+
+
+    //Abonos
+
+    public function abonarPlan(){
+        $abonoplanid = $_GET['planid'];
+
+        $planData = new PlanData();
+
+        $planData->abonarPlan($abonoplanid);
+
+        $resultado['clientes'] = $planData->obtenerClientes();
+
+
+        $this->view->show("seleccionarClienteVerAbonos.php", $resultado);
+
+    }
+
+    public function seleccionarClienteTransferir(){
+        $planData = new PlanData();
+        $resultado['clientes'] = $planData->obtenerClientes();
+
+        $this->view->show("seleccionarClienteTransferir.php", $resultado);
+    }
+
+
+    public function mostrarTransferirPlan(){
+        $cliente_antiguo = $_POST['select_clientes'];
+
+        $planData = new PlanData();
+        $resultado['planes'] = $planData->obtenerPlanesCliente($cliente_antiguo);
+
+        $resultado['clientes'] = $planData->obtenerClientes();
+
+        $this->view->show("transferirPlan.php",$resultado);
+    }
+
+    public function transferirPlan(){
+
+
+        $compraplanid = $_POST['select_planes'];
+        $cliente_nuevo = $_POST['select_clientes'];
+
+        $planData = new PlanData();
+        
+        $planData->transferirPlan($cliente_nuevo,$compraplanid);
+
+        $resultado['clientes'] = $planData->obtenerClientes();
+
+
+        $this->view->show("seleccionarClienteVerAbonos.php", $resultado);
+    }
 }

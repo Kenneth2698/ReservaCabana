@@ -136,7 +136,7 @@ class PlanData
     {
 
 
-        $consulta = $this->db->prepare("SELECT c.planid, a.fechacobro,a.fechaabono,a.pagado,a.monto FROM tbabonoplan a
+        $consulta = $this->db->prepare("SELECT a.abonoplanid ,c.planid, a.fechacobro,a.fechaabono,a.pagado,a.monto FROM tbabonoplan a
                                         JOIN tbcompraplan c
                                         ON a.compraplanid = c.compraplanid
                                         WHERE c.clienteid = $clienteid
@@ -145,6 +145,41 @@ class PlanData
         $resultado = $consulta->fetchAll();
         $consulta->CloseCursor();
 
+
+        return $resultado;
+    }
+
+    public function abonarPlan($abonoplanid)
+    {
+        $consulta = $this->db->prepare("UPDATE tbabonoplan
+                                        SET pagado = 1, fechaabono = NOW()
+                                        WHERE abonoplanid = $abonoplanid
+                                        ");
+        $consulta->execute();
+        $consulta->CloseCursor();
+    }
+
+
+    public function transferirPlan($cliente_nuevo, $compraplanid)
+    {
+        $consulta = $this->db->prepare("UPDATE tbcompraplan
+                                        SET clienteid= $cliente_nuevo
+                                        WHERE compraplanid = $compraplanid
+                                        ");
+        $consulta->execute();
+        $consulta->CloseCursor();
+    }
+
+
+    public function obtenerPlanesCliente($clienteid)
+    {
+        $consulta = $this->db->prepare("SELECT compraplanid, planid, clienteid
+                                        FROM tbcompraplan
+                                        WHERE clienteid = $clienteid
+                                        ");
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->CloseCursor();
 
         return $resultado;
     }

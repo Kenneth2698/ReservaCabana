@@ -17,6 +17,7 @@
                     <th>Fecha de abono</th>
                     <th>Monto</th>
                     <th>Estado</th>
+                    <th>Accion</th>
 
                 </tr>
 
@@ -48,6 +49,7 @@
                             }
                             ?>
                         </td>
+                        <td><a href="?controlador=Plan&accion=abonarPlan&planid=<?php echo $abonos['abonoplanid']?>" class="btn">Abonar</a></td>
                     </tr>
 
 
