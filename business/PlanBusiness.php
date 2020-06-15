@@ -215,7 +215,8 @@ class PlanBusiness
 
     //Abonos
 
-    public function abonarPlan(){
+    public function abonarPlan()
+    {
         $abonoplanid = $_GET['planid'];
 
         $planData = new PlanData();
@@ -226,10 +227,25 @@ class PlanBusiness
 
 
         $this->view->show("seleccionarClienteVerAbonos.php", $resultado);
-
     }
 
-    public function seleccionarClienteTransferir(){
+    public function abonarPlanRestante()
+    {
+        $abonoplan = unserialize($_GET["abonos"]);
+
+        $planData = new PlanData();
+
+        foreach ($abonoplan as $abonos) {
+            if ($abonos['pagado'] != 1) {
+                $planData->abonarPlan($abonos['abonoplanid']);
+            }
+        }
+        $resultado['clientes'] = $planData->obtenerClientes();
+        $this->view->show("seleccionarClienteVerAbonos.php", $resultado);
+    }
+
+    public function seleccionarClienteTransferir()
+    {
         $planData = new PlanData();
         $resultado['clientes'] = $planData->obtenerClientes();
 
@@ -237,7 +253,8 @@ class PlanBusiness
     }
 
 
-    public function mostrarTransferirPlan(){
+    public function mostrarTransferirPlan()
+    {
         $cliente_antiguo = $_POST['select_clientes'];
 
         $planData = new PlanData();
@@ -245,22 +262,44 @@ class PlanBusiness
 
         $resultado['clientes'] = $planData->obtenerClientes();
 
-        $this->view->show("transferirPlan.php",$resultado);
+        $this->view->show("transferirPlan.php", $resultado);
     }
 
-    public function transferirPlan(){
+    public function transferirPlan()
+    {
 
 
         $compraplanid = $_POST['select_planes'];
         $cliente_nuevo = $_POST['select_clientes'];
 
         $planData = new PlanData();
-        
-        $planData->transferirPlan($cliente_nuevo,$compraplanid);
+
+        $planData->transferirPlan($cliente_nuevo, $compraplanid);
 
         $resultado['clientes'] = $planData->obtenerClientes();
 
 
         $this->view->show("seleccionarClienteVerAbonos.php", $resultado);
+    }
+
+    public function seleccionarClienteVerMorosos()
+    {
+
+
+        $planData = new PlanData();
+        $resultado['clientes'] = $planData->obtenerClientes();
+
+
+        $this->view->show("seleccionarClienteVerMorosos.php", $resultado);
+    }
+
+    public function verMorosos()
+    {
+
+        $clienteid = $_POST['select_clientes'];
+
+        $planData = new PlanData();
+        $resultado['abonos'] = $planData->obtenerTodosLosAbonos($clienteid);
+        $this->view->show("verMorosos.php", $resultado);
     }
 }

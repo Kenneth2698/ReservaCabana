@@ -99,6 +99,10 @@
     <li><a href="?controlador=Plan&accion=mostrarCrearPlan">Crear plan</a></li>
     <li><a href="?controlador=Plan&accion=mostrarVerPlan">Ver planes</a></li>
     </ul>
+    <h2 class="title">Morocidad Clientes</h2>
+    <ul>
+    <li><a href="?controlador=Plan&accion=seleccionarClienteVerMorosos">Ver Morosos</a></li>
+    </ul>
     <h2 class="title">CERRAR SESION</h2>
     <ul>
     <li><a href="?controlador=Usuario&accion=cerrarSesion">Salir</a></li>

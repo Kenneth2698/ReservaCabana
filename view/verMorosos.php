@@ -7,7 +7,7 @@
 
 <body>
     <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
-        <h2 class="title">Lista de abonos pendientes, pagados y morosos</h2>
+        <h2 class="title">Lista de abonos morosos</h2>
         <br>
         <div class="container">
             <table>
@@ -21,47 +21,28 @@
 
                 </tr>
 
-                <?php $miArray=$vars['abonos']; foreach ($vars['abonos'] as $abonos) { ?>
+                <?php foreach ($vars['abonos'] as $abonos) {if($abonos['fechacobro'] < date('Y-m-d')){?>
 
                     <tr>
                         <td><?php echo $abonos['planid'] ?></td>
                         <td><?php echo $abonos['fechacobro'] ?></td>
                         <td>
-                            <?php
-                            if ($abonos['fechaabono'] == NULL) {
-                                echo "__________";
-                            } else {
-                                echo $abonos['fechaabono'];
-                            }
-                            ?>
+                            <?php echo "__________";?>
                         </td>
                         <td><?php echo $abonos['monto'] ?></td>
                         <td>
-                            <?php
-                            if ($abonos['pagado'] == 1) {
-                                echo "Pagado";
-                            } else {
-                                if ($abonos['fechacobro'] < date('Y-m-d')) {
-                                    echo "Moroso";
-                                } else {
-                                    echo "Pendiente";
-                                }
-                            }
+                            <?php echo "Moroso";
                             ?>
                         </td>
-                        <?php
-                            if ($abonos['pagado'] != 1) { ?>
-                                <td><a href="?controlador=Plan&accion=abonarPlan&planid=<?php echo $abonos['abonoplanid']?>" class="btn">Abonar</a></td>
-                           <?php } ?>
+                        <td><a href="?controlador=Plan&accion=abonarPlan&planid=<?php echo $abonos['abonoplanid']?>" class="btn">Abonar</a></td>
                         
                     </tr>
 
 
                 <?php
-                } ?>
+                }} ?>
 
             </table>
-            <li><a href='?controlador=Plan&accion=abonarPlanRestante&abonos=<?php echo serialize($miArray)?>'>Aplicar por el plan</a></li>
 
 
 
