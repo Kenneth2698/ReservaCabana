@@ -54,6 +54,8 @@
             </tr>
         <?php }?>
         </table>
+            <br><br>
+        <h2><a href="?controlador=Reserva&accion=cargarCabanasParaCalendario">Ir al calendario</a></h2>
         
 
     </div>

@@ -168,7 +168,7 @@ class ReservaData
     public function obtenerDisponibilidadTarde($fecha, $cabanaid)
     {
         $consulta = $this->db->prepare("SELECT NOT EXISTS 
-                                        (select * from tbreserva where reservahorainicio < '17:59:00' 
+                                        (select * from tbreserva where (reservahorainicio < '17:59:00' AND reservahorainicio > '11:59:00') 
                                         AND ('$fecha' BETWEEN reservafechainicio AND reservafechafin)
                                         AND  cabanaid = $cabanaid ) as tarde");
 
@@ -181,7 +181,7 @@ class ReservaData
     public function obtenerDisponibilidadNoche($fecha, $cabanaid)
     {
         $consulta = $this->db->prepare("SELECT NOT EXISTS 
-                                            (select * from tbreserva where reservahorainicio < '05:59:00' 
+                                            (select * from tbreserva where (reservahorainicio < '23:59:00' AND reservahorainicio > '17:59:00')
                                             AND ('$fecha' BETWEEN reservafechainicio AND reservafechafin)
                                             AND  cabanaid =  $cabanaid ) as noche");
 
@@ -191,3 +191,4 @@ class ReservaData
         return $resultado[0][0];
     }
 }
+

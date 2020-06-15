@@ -82,12 +82,30 @@
     <li><a href="?controlador=Reserva&accion=cargarCrearReserva">Crear RESERVA</a></li>
     <li><a href="?controlador=Reserva&accion=cargarVerReserva">Ver RESERVAS</a></li>
     <li><a href="?controlador=Reserva&accion=cargarFiltroReserva">Buscar RESERVAS</a></li>
-    <li><a href="?controlador=Reserva&accion=mostrarCalendario">TEST</a></li>
+    <li><a href="?controlador=Reserva&accion=cargarCabanasParaCalendario">Calendario</a></li>
     </ul>
     <h2 class="title">CRUD DE CUENTA PROPIETARIO</h2>
     <ul>
     <li><a href="?controlador=Cabana&accion=cargarFormPropietarioCuenta">Insertar cuenta a propietarios</a></li>
     <li><a href="?controlador=Cabana&accion=cargarSeleccionarPropietarioCuenta">Ver cuentas</a></li>
+    </ul>
+    <h2 class="title">CRUD DE OFERTAS</h2>
+    <ul>
+    <li><a href="?controlador=Oferta&accion=cargarCrearOferta">Insertar ofertas</a></li>
+    <li><a href="?controlador=Oferta&accion=verOfertas">Ver ofertas</a></li>
+    </ul>
+    <h2 class="title">CRUD Plan Socio</h2>
+    <ul>
+    <li><a href="?controlador=Plan&accion=mostrarCrearPlan">Crear plan</a></li>
+    <li><a href="?controlador=Plan&accion=mostrarVerPlan">Ver planes</a></li>
+    </ul>
+    <h2 class="title">Morocidad Clientes</h2>
+    <ul>
+    <li><a href="?controlador=Plan&accion=seleccionarClienteVerMorosos">Ver Morosos</a></li>
+    </ul>
+    <h2 class="title">CERRAR SESION</h2>
+    <ul>
+    <li><a href="?controlador=Usuario&accion=cerrarSesion">Salir</a></li>
     </ul>
 </div>
 
