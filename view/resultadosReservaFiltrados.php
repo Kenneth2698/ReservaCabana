@@ -15,39 +15,40 @@
 
 
         <div class="container">
-            <h3>Cuando quieres alojarte en <?php echo $vars[0]["nombre"] ?> ?</h3>
-            <form class="form">
+            <h3>Cuando quieres alojarte en <?php echo $vars["cabananombre"] ?> ?</h3>
+            <form class="form" action="?controlador=Reserva&accion=ultimaVerificacion" method="POST">
                 <div class="row">
                     <div class="form-group col-md-4">
                     <div class="col">
                         <label for="">Fecha de Llegada:</label>
-                        <input type="date" class="form-control">
+                        <input type="date" id="fecha1" name="fecha1" class="form-control" value="<?php echo $vars["fecha1"] ?>">
                     </div>
                     </div>    
 
                     <div class="form-group col-md-4">
                     <div class="col">
-                        <label for="">Fecha de Llegada:</label>
-                        <input type="date" class="form-control">
+                        <label for="">Fecha de Salida:</label>
+                        <input type="date" id="fecha2" name="fecha2" class="form-control" value="<?php echo $vars["fecha2"] ?>">
 
                     </div>
                     </div>
                 </div>
                 <div class="row">
-
                     <div class="form-group col-md-2">
                     <div class="col">
                         <label for="">Cantidad de personas:</label>
-                        <select name="" id="" class="form-control">
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
+                        <select name="cantidad" id="cantidad" class="form-control">
+                            <option selected value="<?php echo $vars["cantidad"] ?>"><?php echo $vars["cantidad"] ?></option>
+                            <option value="2">2</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
                         </select>
-
                     </div>
                     </div>
                     <div class="form-group col-md-6">
                     <div class="col">
+                    <input type="hidden" id="cabanaid" name="cabanaid" value="<?php echo $vars['cabanaid'] ?>">
+                    <input type="hidden" id="cabananombre" name="cabananombre" value="<?php echo $vars['cabananombre'] ?>">
                     <button type="submit" class="btn btn-primary" style="margin-top: 32px;">Ver disponibilidad</button>
                     </div>
                     </div>
