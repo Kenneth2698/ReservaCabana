@@ -9,7 +9,7 @@
     <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
         <h2 class="title">Crear cabaña</h2>
         <div class="container">
-            <form method="POST" action="?controlador=Cabana&accion=insertarCabana">
+            <form method="POST" action="?controlador=Cabana&accion=insertarCabana" enctype="multipart/form-data">
                 <label for="propietarioid">Propietario</label>
                 <br><br>
                 <select name="propietarioid" id="propietarioid">
