@@ -24,7 +24,7 @@ class ActividadData
     public function obtenerActividades($cabanaid)
     {
         $consulta = $this->db->prepare("
-            SELECT * FROM tbactividades WHERE cabanaid = $cabanaid;");
+            SELECT * FROM tbactividades WHERE cabanaid = $cabanaid AND actividadestado = 1;");
 
 
         $consulta->execute();
