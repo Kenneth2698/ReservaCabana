@@ -4,7 +4,7 @@
 <?php
 //include_once 'public/navbarAdmin.php';
 ?>
-
+<script src="public/js/ScriptK.js"></script>
 <body>
     <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
         <h2 class="title">Adquirir plan</h2>
@@ -30,7 +30,6 @@
                             <th>ID</th>
                             <th>Cantidad de dias</th>
                             <th>Monto del plan</th>
-                            <th>Cantidad de cuotas</th>
                             <th>Restricciones</th>
 
                         </tr>
@@ -42,13 +41,11 @@
                                 <td>________________________</td>
                                 <td>________________________</td>
                                 <td>________________________</td>
-                                <td>________________________</td>
                             </tr>
                             <tr>
                                 <td><?php echo $planes['planid'] ?></td>
                                 <td><?php echo $planes['plancantidaddias'] ?></td>
                                 <td><?php echo $planes['planmonto'] ?></td>
-                                <td><?php echo $planes['plannumerocuotas'] ?></td>
 
                                 <td>
                                     <?php
@@ -79,7 +76,39 @@
                     </select>
                     <br>
                     <br>
+                    <label for="cantidadCuotas">Elija cada cuanto tiempo va a pagar las cuotas</label>
+                    <br>
+                    <select name="metodoCuotas" id="metodoCuotas">
+                        <option value="7">Semanal </option>
+                        <option value="14">Quincenal</option>
+                        <option value="30">Mensual</option>
+                    </select>
+                    <br>
+                    <br>
+                    <label for="fechainicio">Elija fecha de inicio de pagos</label>
+                    <br>
+                    <input type="date" id="fechainicio" name="fechainicio">
+                    <br>
+                    <br>
+                    <label for="opcion">Elija si desea seleccionar la fecha fin</label>
+                    <input type="checkbox" id="opcion" name="opcion"  onchange="cuotas(1)">
+                    <br>
+                    <br>
+                    <label  for="numeroCuotas">Elija si desea ingresar la cantidad de cuotas</label>
+                    <input type="checkbox" id="opcion2" name="opcion2" onchange="cuotas(2)">
+                    <br>
+                    <br>
 
+                    
+                    <label id="l1"  for="numeroCuotas" style="display:none">Elija si desea ingresar la cantidad de cuotas</label>
+                    <input type="number" id="numerocuotas" name="numerocuotas" style="display:none">
+                    <br>
+                    <br>
+                    <label id="l2" for="fechafin" style="display:none">Elija fecha de fin de pagos</label>
+                    <br>
+                    <input type="date" id="fechafin" name="fechafin" style="display:none" >
+                    <br>
+                    <br>
                     <button type="submit">Adquirir</button>
             </form>
             <br><br><br><br>

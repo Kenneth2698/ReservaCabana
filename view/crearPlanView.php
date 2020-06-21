@@ -21,11 +21,6 @@
                 <br>
                 <input type="number" id="planmonto" name="planmonto">
                 <br>
-                <label for="plannumerocuotas">Cantidad de cuotas</label>
-                <br>
-                <input type="number" id="plannumerocuotas" name="plannumerocuotas">
-                <br>
-                <br>
                 <label for="restricciones">Restricciones</label>
                 <br>
                 <select name="restricciones" id="restricciones">
