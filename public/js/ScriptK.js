@@ -153,10 +153,11 @@ function cuotas(opcion) {
             document.getElementById("l2").style.display = "none";
             document.getElementById("numerocuotas").style.display = "block";
             document.getElementById("fechafin").style.display = "none";
-            if (fechafin.checked) {
-                numeroCuotas.checked = false;
+
+            if (numeroCuotas.checked) {
+                fechafin.checked = false;
             } else {
-                numeroCuotas.checked = true;
+                fechafin.checked = true;
             }
 
             break;
@@ -165,10 +166,11 @@ function cuotas(opcion) {
             document.getElementById("l2").style.display = "block";
             document.getElementById("numerocuotas").style.display = "none";
             document.getElementById("fechafin").style.display = "block";
-            if (numeroCuotas.checked) {
-                fechafin.checked = false;
+
+            if (fechafin.checked) {
+                numeroCuotas.checked = false;
             } else {
-                fechafin.checked = true;
+                numeroCuotas.checked = true;
             }
 
 

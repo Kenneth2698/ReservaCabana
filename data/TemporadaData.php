@@ -25,7 +25,19 @@ class TemporadaData
 
 
     }
+    public function obtenerCabanas()
+    {
 
+        $consulta = $this->db->prepare('select cabanaid,cabananombre from tbcabana');
+
+
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->CloseCursor();
+
+
+        return $resultado;
+    }
 
     public function obtenerTemporadas(){
 

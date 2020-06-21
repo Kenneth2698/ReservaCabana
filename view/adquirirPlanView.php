@@ -5,6 +5,7 @@
 //include_once 'public/navbarAdmin.php';
 ?>
 <script src="public/js/ScriptK.js"></script>
+
 <body>
     <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
         <h2 class="title">Adquirir plan</h2>
@@ -29,9 +30,10 @@
                         <tr>
                             <th>ID</th>
                             <th>Cantidad de dias</th>
+                            <th>Cabaña</th>
                             <th>Monto del plan</th>
                             <th>Restricciones</th>
-
+                            
                         </tr>
 
                         <?php $contador = 0;
@@ -45,6 +47,7 @@
                             <tr>
                                 <td><?php echo $planes['planid'] ?></td>
                                 <td><?php echo $planes['plancantidaddias'] ?></td>
+                                <td><?php echo $planes['cabanaid'] ?></td>
                                 <td><?php echo $planes['planmonto'] ?></td>
 
                                 <td>
@@ -90,23 +93,21 @@
                     <input type="date" id="fechainicio" name="fechainicio">
                     <br>
                     <br>
+                    <label for="numeroCuotas">Elija si desea ingresar la cantidad de cuotas</label>
+                    <input type="checkbox" id="opcion2" name="opcion2" onclick="cuotas(2)">
+                    <br>
+                    <br>
                     <label for="opcion">Elija si desea seleccionar la fecha fin</label>
-                    <input type="checkbox" id="opcion" name="opcion"  onchange="cuotas(1)">
+                    <input type="checkbox" id="opcion" name="opcion" onclick="cuotas(1)">
                     <br>
                     <br>
-                    <label  for="numeroCuotas">Elija si desea ingresar la cantidad de cuotas</label>
-                    <input type="checkbox" id="opcion2" name="opcion2" onchange="cuotas(2)">
-                    <br>
-                    <br>
-
-                    
-                    <label id="l1"  for="numeroCuotas" style="display:none">Elija si desea ingresar la cantidad de cuotas</label>
+                    <label id="l1" for="numeroCuotas" style="display:none">Ingrese la cantidad de cuotas</label>
                     <input type="number" id="numerocuotas" name="numerocuotas" style="display:none">
                     <br>
                     <br>
                     <label id="l2" for="fechafin" style="display:none">Elija fecha de fin de pagos</label>
                     <br>
-                    <input type="date" id="fechafin" name="fechafin" style="display:none" >
+                    <input type="date" id="fechafin" name="fechafin" style="display:none">
                     <br>
                     <br>
                     <button type="submit">Adquirir</button>
