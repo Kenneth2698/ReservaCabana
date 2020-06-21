@@ -25,7 +25,8 @@ function agregarCriterioValorPrioridad(criterio, valor, prioridad) {
 }
 
 
-function agregarRestriccion(idTemporada){
+
+function agregarRestriccion(idTemporada) {
     var parametros = {
         'idTemporada': idTemporada,
     };
@@ -136,4 +137,45 @@ function obtenerValoresDeTablaImagenes(idtabla) {
 
         }
     );
+}
+
+
+
+function cuotas(opcion) {
+
+    var fechafin = document.getElementById("opcion");
+    var numeroCuotas = document.getElementById("opcion2");
+
+    switch (opcion) {
+        case 2:
+
+            document.getElementById("l1").style.display = "block";
+            document.getElementById("l2").style.display = "none";
+            document.getElementById("numerocuotas").style.display = "block";
+            document.getElementById("fechafin").style.display = "none";
+            if (fechafin.checked) {
+                numeroCuotas.checked = false;
+            } else {
+                numeroCuotas.checked = true;
+            }
+
+            break;
+        case 1:
+            document.getElementById("l1").style.display = "none";
+            document.getElementById("l2").style.display = "block";
+            document.getElementById("numerocuotas").style.display = "none";
+            document.getElementById("fechafin").style.display = "block";
+            if (numeroCuotas.checked) {
+                fechafin.checked = false;
+            } else {
+                fechafin.checked = true;
+            }
+
+
+            break;
+    }
+
+
+
+
 }
