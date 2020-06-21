@@ -13,8 +13,10 @@
                 <tr>
                     <th>ID</th>
                     <th>Cantidad de dias</th>
+                    <th>Cabaña</th>
                     <th>Monto del plan</th>
                     <th>Restricciones</th>
+                    
 
                 </tr>
 
@@ -29,6 +31,7 @@
                     <tr>
                         <td><?php echo $planes['planid'] ?></td>
                         <td><?php echo $planes['plancantidaddias'] ?></td>
+                        <td><?php echo $planes['cabanaid'] ?></td>
                         <td><?php echo $planes['planmonto'] ?></td>
 
                         <td>
@@ -38,6 +41,7 @@
                             }
                             ?>
                         </td>
+                        
                     </tr>
 
 

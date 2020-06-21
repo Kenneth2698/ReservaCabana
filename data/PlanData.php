@@ -11,11 +11,11 @@ class PlanData
         $this->db = SPDO::singleton();
     } //constructor
 
-    public function insertarPlan($cantDias, $monto, $restricciones)
+    public function insertarPlan($cantDias, $monto, $restricciones,$cabanaid)
     {
 
         $consulta = $this->db->prepare("
-            INSERT INTO tbplan (plancantidaddias,planmonto,planrestricciones)  VALUES ( $cantDias,$monto,'$restricciones');");
+            INSERT INTO tbplan (plancantidaddias,planmonto,planrestricciones,cabanaid)  VALUES ( $cantDias,$monto,'$restricciones',$cabanaid);");
 
 
         $consulta->execute();
@@ -40,7 +40,10 @@ class PlanData
     public function obtenerPlanes()
     {
 
-        $consulta = $this->db->prepare('SELECT planid,plancantidaddias,planmonto,planrestricciones FROM tbplan');
+        $consulta = $this->db->prepare('SELECT p.planid,p.plancantidaddias,p.planmonto,p.planrestricciones,c.cabananombre as cabanaid
+                                   FROM tbplan p
+                                  join tbcabana c
+                                   on p.cabanaid = c.cabanaid');
 
 
         $consulta->execute();
@@ -209,12 +212,12 @@ class PlanData
         return $resultado[0]['ultimoabono'];
     }
 
+   
     public function abonarUltimoAbono($abonoplanid, $excedente)
     {
         $consulta = $this->db->prepare("UPDATE tbabonoplan
                                         SET monto = monto - $excedente
                                         WHERE abonoplanid = $abonoplanid");
-        print_r($abonoplanid);
         $consulta->execute();
         $consulta->CloseCursor();
     }
@@ -228,6 +231,19 @@ class PlanData
         $consulta->execute();
         $resultado = $consulta->fetchAll();
         $consulta->CloseCursor();
+
+        return $resultado;
+    }
+    public function obtenerCabanas()
+    {
+
+        $consulta = $this->db->prepare('select cabanaid,cabananombre from tbcabana');
+
+
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->CloseCursor();
+
 
         return $resultado;
     }

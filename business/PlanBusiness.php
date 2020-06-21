@@ -28,7 +28,7 @@ class PlanBusiness
 
         $temporadaData = new TemporadaData();
         $resultado['temporadas'] = $temporadaData->obtenerTemporadas();
-
+        $resultado['cabanas'] = $temporadaData->obtenerCabanas();
         $this->view->show("crearPlanView.php", $resultado);
     }
 
@@ -44,7 +44,7 @@ class PlanBusiness
     public function insertarPlan()
     {
         $cantidadDias = $_POST['plancantidaddias'];
-
+        $cabanaid = $_POST['cabanaid'];
         $planmonto = $_POST['planmonto'];
 
 
@@ -62,10 +62,10 @@ class PlanBusiness
         $_SESSION['indice'] = 0;
 
         $planData = new PlanData();
-        $planData->insertarPlan($cantidadDias, $planmonto, $restricciones);
+        $planData->insertarPlan($cantidadDias, $planmonto, $restricciones,$cabanaid);
 
         $resultado['temporadas'] = $planData->obtenerTemporadas();
-
+        $resultado['cabanas'] = $planData->obtenerCabanas();
         $this->view->show("crearPlanView.php", $resultado);
     }
 
@@ -103,7 +103,6 @@ class PlanBusiness
     {
         $planData = new PlanData();
         $resultado['planes'] = $planData->obtenerPlanes();
-
         $contador = 0;
         $restriccionesArray = array();
 
@@ -252,7 +251,7 @@ class PlanBusiness
             $planData->abonarPlan($planid);
             $excedente = $montoDepositar - $montofijo;
             $compraID =  $planData->obtenerCompraId($planid);
-            $ultimoAbono = $planData->ultimoAbono( $compraID);
+            $ultimoAbono = $planData->ultimoAbono($compraID);
             $planData->abonarUltimoAbono($ultimoAbono, $excedente);
         } else {
             $faltante = $montofijo - $montoDepositar;
