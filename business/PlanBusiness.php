@@ -218,7 +218,10 @@ class PlanBusiness
 
         $planData = new PlanData();
         $resultado['abonos'] = $planData->obtenerTodosLosAbonos($clienteid);
-        $this->view->show("verAbonosCliente.php", $resultado);
+        if(count($resultado['abonos'])==0){
+            $this->view->show("sinPlan.php", $resultado);
+        }
+        else{$this->view->show("verAbonosCliente.php", $resultado);}
     }
 
 
@@ -334,6 +337,15 @@ class PlanBusiness
 
         $planData = new PlanData();
         $resultado['abonos'] = $planData->obtenerTodosLosAbonos($clienteid);
-        $this->view->show("verMorosos.php", $resultado);
+        $num = count($resultado['abonos']);
+        $bandera = 0;
+        foreach ($resultado['abonos'] as $abonos){
+            if($abonos['fechacobro'] < date('Y-m-d')){$bandera++;};
+        }
+        if($num == 0 || $bandera<1){
+            $this->view->show("sinDeuda.php", $resultado);
+        }
+        else {
+            $this->view->show("verMorosos.php", $resultado);}
     }
 }

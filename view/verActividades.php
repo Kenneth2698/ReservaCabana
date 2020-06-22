@@ -28,7 +28,7 @@
                         <td><?php echo $actividad['actividadnombre'] ?></td>
                         <td><?php echo $actividad['actividaddueno'] ?></td>
                         <td><?php echo $actividad['actividaddescripcion'] ?></td>
-                        <td><?php echo $actividad['actividadprecio'] ?></td>
+                        <td>₡<?php echo $actividad['actividadprecio'] ?></td>
                         <td><?php echo $actividad['cabanaid'] ?></td>
 
 

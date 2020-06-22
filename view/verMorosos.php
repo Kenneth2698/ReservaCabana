@@ -20,7 +20,6 @@
                     <th>Accion</th>
 
                 </tr>
-
                 <?php foreach ($vars['abonos'] as $abonos) {if($abonos['fechacobro'] < date('Y-m-d')){?>
 
                     <tr>
@@ -29,7 +28,7 @@
                         <td>
                             <?php echo "__________";?>
                         </td>
-                        <td><?php echo $abonos['monto'] ?></td>
+                        <td>₡<?php echo $abonos['monto'] ?></td>
                         <td>
                             <?php echo "Moroso";
                             ?>

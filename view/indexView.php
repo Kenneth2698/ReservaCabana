@@ -28,7 +28,7 @@ include_once './public/navbarCliente.php';
                             <h6>Inicio: <?php echo $oferta["ofertafechainicio"] ?></h6>
                             <h6>Fin: <?php echo $oferta["ofertafechafin"] ?></h6>
                             <br>
-                            <h7>Precio: <b><?php echo $oferta["ofertaprecio"] ?></b></h7>
+                            <h7>Precio: <b>₡<?php echo $oferta["ofertaprecio"] ?></b></h7>
                             <hr>
                     <?php }
                     } ?>
@@ -40,7 +40,7 @@ include_once './public/navbarCliente.php';
                         <h6><?php echo $a["actividadnombre"] ?></h6>
                         <br>
                         <h6>Cabana: <b><?php echo $a["cabananombre"] ?></b></h6>
-                        <h7>Precio: <b><?php echo $a["actividadprecio"] ?></b></h7>
+                        <h7>Precio: <b>₡<?php echo $a["actividadprecio"] ?></b></h7>
                         <img src=<?php echo "./public/imgs/".$a["actividadimagen1"] ?> alt="" height="100px" width="100px">
                         <br><br>
                         <img src=<?php echo "./public/imgs/".$a["actividadimagen2"] ?> alt="" height="100px" width="100px">

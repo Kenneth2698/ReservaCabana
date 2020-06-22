@@ -37,7 +37,7 @@
             <br><br>
             <label for="">Precio</label>
             <br><br>
-            <input type="number" id="precioactividad" name="precioactividad" value="<?php echo $vars["a"][0]["actividadprecio"]?>">
+            ₡<input type="number" id="precioactividad" name="precioactividad" value="<?php echo $vars["a"][0]["actividadprecio"]?>">
             <br><br>
             <h3>Seleccione las 2 imagenes para actualizar, o bien no seleccione ninguna si desea mantener las imagenes actuales</h3>
             <br><br>

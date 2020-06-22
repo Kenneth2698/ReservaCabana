@@ -32,7 +32,7 @@
                         <td><?php echo $planes['planid'] ?></td>
                         <td><?php echo $planes['plancantidaddias'] ?></td>
                         <td><?php echo $planes['cabanaid'] ?></td>
-                        <td><?php echo $planes['planmonto'] ?></td>
+                        <td>₡<?php echo $planes['planmonto'] ?></td>
 
                         <td>
                             <?php

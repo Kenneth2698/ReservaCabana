@@ -38,7 +38,7 @@
                             }
                             ?>
                         </td>
-                        <td><?php echo $abonos['monto'] ?></td>
+                        <td>₡<?php echo $abonos['monto'] ?></td>
                         <td>
                             <?php
                             if ($abonos['pagado'] == 1) {
@@ -57,7 +57,7 @@
                             <form action="?controlador=Plan&accion=abonarPlanPersonalizado" method="POST">
                                 <input id="planid" name="planid" type="hidden" value="<?php echo $abonos['abonoplanid'] ?>">
                                 <input id="montofijo" name="montofijo" type="hidden" value="<?php echo $abonos['monto'] ?>">
-                                <td><input id="monto" name="monto"  type="number" value="<?php echo $abonos['monto'] ?>"></td>
+                                <td>₡<input id="monto" name="monto"  type="number" value="<?php echo $abonos['monto'] ?>"></td>
                                 <td><button type="submit" >Abonar</button></td>
                             </form>
                             <td><a href="?controlador=Plan&accion=abonarPlan&planid=<?php echo $abonos['abonoplanid'] ?>" class="btn">Abonar todo</a></td>

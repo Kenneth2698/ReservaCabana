@@ -20,7 +20,7 @@
             <tr>
                 <td><?php echo $tarifa['cabanatarifaid']?></td>
                 <td><?php echo $tarifa['cabananombre']?></td>
-                <td><?php echo $tarifa['cabanatarifamonto']?></td>
+                <td>₡<?php echo $tarifa['cabanatarifamonto']?></td>
                 
    
 
