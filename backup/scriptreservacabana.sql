@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 8.0.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.20, for Win64 (x86_64)
 --
 -- Host: 163.178.107.10    Database: bdreservacabana
 -- ------------------------------------------------------
@@ -16,6 +16,65 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `tbabonoplan`
+--
+
+DROP TABLE IF EXISTS `tbabonoplan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tbabonoplan` (
+  `abonoplanid` int(11) NOT NULL AUTO_INCREMENT,
+  `compraplanid` int(11) NOT NULL,
+  `fechacobro` date NOT NULL,
+  `fechaabono` date DEFAULT NULL,
+  `pagado` bit(1) DEFAULT NULL,
+  `monto` int(11) DEFAULT NULL,
+  PRIMARY KEY (`abonoplanid`)
+) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbabonoplan`
+--
+
+LOCK TABLES `tbabonoplan` WRITE;
+/*!40000 ALTER TABLE `tbabonoplan` DISABLE KEYS */;
+INSERT INTO `tbabonoplan` VALUES (106,32,'2020-06-28','2020-06-21',_binary '',16667),(107,32,'2020-07-05','2020-06-21',_binary '',6667),(108,32,'2020-07-12','2020-06-22',_binary '',15667),(109,32,'2020-07-19',NULL,_binary '\0',16667),(110,32,'2020-07-26',NULL,_binary '\0',16667),(111,32,'2020-08-02',NULL,_binary '\0',667),(112,33,'2020-06-21','2020-06-21',_binary '',25000),(113,33,'2020-07-05','2020-06-21',_binary '',5000),(114,33,'2020-07-19',NULL,_binary '\0',25000),(115,33,'2020-08-02',NULL,_binary '\0',25000),(116,33,'2020-08-16',NULL,_binary '\0',25000),(117,33,'2020-08-30',NULL,_binary '\0',20000),(118,34,'2020-06-23',NULL,_binary '\0',3684),(119,34,'2020-06-30',NULL,_binary '\0',3684),(120,34,'2020-07-07',NULL,_binary '\0',3684);
+/*!40000 ALTER TABLE `tbabonoplan` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbactividades`
+--
+
+DROP TABLE IF EXISTS `tbactividades`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tbactividades` (
+  `actividadid` int(11) NOT NULL AUTO_INCREMENT,
+  `actividadnombre` varchar(100) DEFAULT NULL,
+  `actividaddueno` varchar(300) DEFAULT NULL,
+  `actividaddescripcion` varchar(500) DEFAULT NULL,
+  `actividadprecio` int(11) DEFAULT NULL,
+  `actividadimagen1` varchar(500) DEFAULT NULL,
+  `actividadimagen2` varchar(500) DEFAULT NULL,
+  `actividadestado` int(11) DEFAULT NULL,
+  `cabanaid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`actividadid`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbactividades`
+--
+
+LOCK TABLES `tbactividades` WRITE;
+/*!40000 ALTER TABLE `tbactividades` DISABLE KEYS */;
+INSERT INTO `tbactividades` VALUES (3,'Pesca de tilapia','Dueno pesca 3','pesca de las mejores tilapias',4000,'tilapia.jpg','tilapia2.jpg',1,1),(4,'Tortilla','Dueno tortillas','Mejores tortillas',2000,'tortilla.jpg','tortilla2.jpg',2,2),(5,'Gallos de pescado','Profesor Brenes','Tacos o gallos de pescado en tortilla de maiz',5000,'tilapia.jpg','tortilla.jpg',1,2),(6,'Prueba A','Prueba','AAAAAAA',1200,'tilapia2.jpg','tilapia2.jpg',2,1),(7,'Hacer tortillas','Jose','tortillas',3000,'tortilla.jpg','tilapia2.jpg',2,1);
+/*!40000 ALTER TABLE `tbactividades` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tbcabana`
 --
 
@@ -29,7 +88,7 @@ CREATE TABLE `tbcabana` (
   `cabanaestado` int(11) NOT NULL,
   `cabanacantidad` int(11) DEFAULT NULL,
   PRIMARY KEY (`cabanaid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +97,7 @@ CREATE TABLE `tbcabana` (
 
 LOCK TABLES `tbcabana` WRITE;
 /*!40000 ALTER TABLE `tbcabana` DISABLE KEYS */;
-INSERT INTO `tbcabana` VALUES (1,'Finca Buenavista',6,1,10),(2,'Finca El Jardin',9,1,10);
+INSERT INTO `tbcabana` VALUES (1,'Finca Buena Vista',6,1,10),(2,'Finca El Jardin',9,1,10);
 /*!40000 ALTER TABLE `tbcabana` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -201,6 +260,31 @@ INSERT INTO `tbclientecorreo` VALUES (5,'jose@gmail.com,jose@gmail.com',1),(6,'j
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tbcompraplan`
+--
+
+DROP TABLE IF EXISTS `tbcompraplan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tbcompraplan` (
+  `compraplanid` int(11) NOT NULL AUTO_INCREMENT,
+  `planid` int(11) NOT NULL,
+  `clienteid` int(11) NOT NULL,
+  PRIMARY KEY (`compraplanid`)
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbcompraplan`
+--
+
+LOCK TABLES `tbcompraplan` WRITE;
+/*!40000 ALTER TABLE `tbcompraplan` DISABLE KEYS */;
+INSERT INTO `tbcompraplan` VALUES (32,17,1),(33,18,5),(34,19,3);
+/*!40000 ALTER TABLE `tbcompraplan` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tbhabitacion`
 --
 
@@ -226,6 +310,60 @@ LOCK TABLES `tbhabitacion` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tbofertas`
+--
+
+DROP TABLE IF EXISTS `tbofertas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tbofertas` (
+  `ofertaid` int(11) NOT NULL AUTO_INCREMENT,
+  `ofertanombre` varchar(100) DEFAULT NULL,
+  `ofertafechainicio` date DEFAULT NULL,
+  `ofertafechafin` date DEFAULT NULL,
+  `ofertaprecio` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ofertaid`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbofertas`
+--
+
+LOCK TABLES `tbofertas` WRITE;
+/*!40000 ALTER TABLE `tbofertas` DISABLE KEYS */;
+INSERT INTO `tbofertas` VALUES (3,'Oferta Julio','2020-07-01','2020-07-31',900),(4,'Oferta de mes de junio','2020-06-09','2020-06-30',600),(5,'Ofertex','2020-09-09','2020-10-04',1200);
+/*!40000 ALTER TABLE `tbofertas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbplan`
+--
+
+DROP TABLE IF EXISTS `tbplan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tbplan` (
+  `planid` int(11) NOT NULL AUTO_INCREMENT,
+  `plancantidaddias` int(11) NOT NULL,
+  `planmonto` int(11) NOT NULL,
+  `planrestricciones` varchar(100) DEFAULT NULL,
+  `cabanaid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`planid`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbplan`
+--
+
+LOCK TABLES `tbplan` WRITE;
+/*!40000 ALTER TABLE `tbplan` DISABLE KEYS */;
+INSERT INTO `tbplan` VALUES (17,3,100000,'4,7',1),(18,2,150000,'5',2),(19,10,10000,'4',1);
+/*!40000 ALTER TABLE `tbplan` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tbpropietario`
 --
 
@@ -239,7 +377,7 @@ CREATE TABLE `tbpropietario` (
   `propietariocorreo` varchar(50) NOT NULL,
   `propietariotelefono` varchar(100) NOT NULL,
   PRIMARY KEY (`propietarioid`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -248,7 +386,7 @@ CREATE TABLE `tbpropietario` (
 
 LOCK TABLES `tbpropietario` WRITE;
 /*!40000 ALTER TABLE `tbpropietario` DISABLE KEYS */;
-INSERT INTO `tbpropietario` VALUES (6,'Kenneth Gerado','123456','kenneth@corre.com','12345678'),(9,'Cristian Propietario','200-01-100-56654-2','cristian.brenes@ucr.ac.cr','83469309');
+INSERT INTO `tbpropietario` VALUES (6,'Kenneth Gerado','123456','kenneth@corre.com','12345678'),(9,'Cristian Propietario','200-01-100-56654-2','cristian.brenes@ucr.ac.cr','83469309'),(10,'','','','');
 /*!40000 ALTER TABLE `tbpropietario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -299,7 +437,7 @@ CREATE TABLE `tbreserva` (
   `reservaclienteid` int(11) DEFAULT NULL,
   `reservamonto` int(11) DEFAULT NULL,
   PRIMARY KEY (`reservaid`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -308,7 +446,7 @@ CREATE TABLE `tbreserva` (
 
 LOCK TABLES `tbreserva` WRITE;
 /*!40000 ALTER TABLE `tbreserva` DISABLE KEYS */;
-INSERT INTO `tbreserva` VALUES (12,1,'MaySunTue25','2020-05-24','2020-05-26','21:00:00','22:00:00',2,'tarjeta',5,NULL),(13,1,'MayThuSun35','2020-05-28','2020-05-31','01:00:00','04:00:00',2,'tarjeta',5,NULL);
+INSERT INTO `tbreserva` VALUES (28,1,'JunMonMon01','2020-06-01','2020-06-01','06:00:00','11:59:00',1,'tarjeta',1,NULL),(29,1,'JunMonMon01','2020-06-01','2020-06-01','18:00:00','23:59:00',1,'tarjeta',1,NULL),(30,1,'JunMonMon01','2020-06-01','2020-06-01','12:00:00','17:59:00',2,'tarjeta',1,NULL),(31,1,'JunThuThu05','2020-06-18','2020-06-18','12:00:00','17:59:00',2,'tarjeta',5,NULL),(32,1,'JunThuThu05','2020-06-18','2020-06-18','06:00:00','11:59:00',2,'tarjeta',5,NULL),(33,1,'JunThuThu05','2020-06-18','2020-06-18','18:00:00','23:59:00',3,'tarjeta',5,NULL),(34,2,'JunTueTue05','2020-06-02','2020-06-02','12:00:00','17:59:00',2,'tarjeta',5,NULL),(35,1,'JunTueTue01','2020-06-02','2020-06-02','06:00:00','11:59:00',1,'tarjeta',1,NULL),(36,1,'JunWedWed01','2020-06-03','2020-06-03','06:00:00','11:59:00',1,'tarjeta',1,NULL);
 /*!40000 ALTER TABLE `tbreserva` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -351,7 +489,7 @@ CREATE TABLE `tbservicio` (
   `servicionombre` varchar(30) NOT NULL,
   `serviciodescripcion` varchar(100) NOT NULL,
   PRIMARY KEY (`servicioid`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -360,7 +498,7 @@ CREATE TABLE `tbservicio` (
 
 LOCK TABLES `tbservicio` WRITE;
 /*!40000 ALTER TABLE `tbservicio` DISABLE KEYS */;
-INSERT INTO `tbservicio` VALUES (21,'Rancho ','grande y familiar'),(23,'Bar amplio','La Cabaña cuenta con una barra para 15 personas y una camara de enfriamiento'),(24,'SER','DESC'),(25,'Piscina','grande');
+INSERT INTO `tbservicio` VALUES (21,'Rancho','grande y familiar'),(23,'Bar amplio','La Cabaña cuenta con una barra para 15 personas y una camara de enfriamiento'),(24,'SER','DESC'),(25,'Piscina','grande'),(26,'Piscina','Grande'),(27,'Piscina','Grande');
 /*!40000 ALTER TABLE `tbservicio` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -437,7 +575,7 @@ CREATE TABLE `tbtemporada` (
 
 LOCK TABLES `tbtemporada` WRITE;
 /*!40000 ALTER TABLE `tbtemporada` DISABLE KEYS */;
-INSERT INTO `tbtemporada` VALUES (1,'pruebaTempo123','2020-04-29','2020-04-29'),(2,'invierno','2020-04-01','2020-04-30'),(3,'invierno','2020-04-01','2020-04-30'),(4,'invierno','2020-04-01','2020-04-30'),(5,'verano','2020-01-01','2020-01-31'),(7,'primavera','2020-04-01','2020-04-30');
+INSERT INTO `tbtemporada` VALUES (4,'Baja','2020-04-01','2020-04-30'),(5,'Media','2020-01-01','2020-01-31'),(7,'Alta','2020-12-01','2020-12-31');
 /*!40000 ALTER TABLE `tbtemporada` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -477,4 +615,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-29 17:30:31
+-- Dump completed on 2020-06-22  8:25:59
