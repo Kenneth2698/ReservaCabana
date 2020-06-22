@@ -13,9 +13,10 @@
                 <tr>
                     <th>ID</th>
                     <th>Cantidad de dias</th>
+                    <th>Cabaña</th>
                     <th>Monto del plan</th>
-                    <th>Cantidad de cuotas</th>
                     <th>Restricciones</th>
+                    
 
                 </tr>
 
@@ -26,13 +27,12 @@
                         <td>________________________</td>
                         <td>________________________</td>
                         <td>________________________</td>
-                        <td>________________________</td>
                     </tr>
                     <tr>
                         <td><?php echo $planes['planid'] ?></td>
                         <td><?php echo $planes['plancantidaddias'] ?></td>
-                        <td><?php echo $planes['planmonto'] ?></td>
-                        <td><?php echo $planes['plannumerocuotas'] ?></td>
+                        <td><?php echo $planes['cabanaid'] ?></td>
+                        <td>₡<?php echo $planes['planmonto'] ?></td>
 
                         <td>
                             <?php
@@ -41,14 +41,15 @@
                             }
                             ?>
                         </td>
+                        
                     </tr>
-                    
+
 
                 <?php $contador++;
                 } ?>
 
             </table>
-            
+
 
 
         </div>

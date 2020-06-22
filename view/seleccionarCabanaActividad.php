@@ -4,6 +4,7 @@
 <?php
 //include_once 'public/navbarAdmin.php';
 ?>
+
 <head>
     <meta charset="UTF-8">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -15,48 +16,62 @@
 
 <body>
     <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
-        <h2 class="title">Tranferencia de plan</h2>
+        <h2 class="title">Crear actividad extra para complemento de cabana</h2>
         <div class="container">
-            <form method="POST" action="?controlador=Plan&accion=transferirPlan">
-                <label for="select_clientes">Nuevo dueno</label>
+            <form method="POST" action="?controlador=Actividad&accion=crearActividad" enctype="multipart/form-data">
+                <label for="select_cabanas">Cabana asociada al servicio</label>
                 <br>
-                <select name="select_clientes" id="select_clientes">
+                <select name="select_cabanas" id="select_cabanas">
                     <?php
-                    foreach ($vars['clientes'] as $row) { ?>
+                    foreach ($vars['cabanas'] as $row) { ?>
                         <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
                     <?php
 
                     } ?>
                 </select>
-            <br><br>
-            <label for="select_clientes">Plan a transferir</label>
+                <br><br>
+                <label for="">Nombre del dueno del servicio</label>
                 <br>
-                <select name="select_planes" id="select_planes">
-                    <?php
-                    foreach ($vars['planes'] as $row) { ?>
-                        <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
-                    <?php
-
-                    } ?>
-                </select>
-            <br><br>
-                    <button type="button" data-toggle="modal" data-target="#Modal">Seleccionar</button>
-                    <!-- Modal -->
+                <br>
+                <input type="text" id="duenoactividad" name="duenoactividad">
+                <br><br>
+                <label for="">Nombre del servicio</label>
+                <br><br>
+                <input type="text" id="nombreactividad" name="nombreactividad">
+                <br><br>
+                <label for="">Descripcion</label>
+                <br><br>
+                <input type="text" id="descripcionactividad" name="descripcionactividad">
+                <br><br>
+                <label for="">Precio</label>
+                <br><br>
+                ₡<input type="number" id="precioactividad" name="precioactividad">
+                <br><br>
+                <label for="">Imagen</label>
+                <br><br>
+                <input type="file" id="imagenactividad" name="imagenactividad">
+                <br><br>
+                <label for="">Imagen 2</label>
+                <br><br>
+                <input type="file" id="imagenactividad2" name="imagenactividad2">
+                <br><br>
+                <button type="button" data-toggle="modal" data-target="#Modal">Solicitar</button>
+                <!-- Modal -->
                 <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="ModalLabel">Transferir Plan</h5>
+                                <h5 class="modal-title" id="ModalLabel">Crear actividad extra para complemento de cabana</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                ¿Esta seguro de transferir el plan?
+                                ¿Desea solicitar crear esta actividad?
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                <button type="submit" class="btn btn-success" >Confirmar</button>
+                                <button type="submit" class="btn btn-success">Confirmar</button>
                             </div>
                         </div>
                     </div>

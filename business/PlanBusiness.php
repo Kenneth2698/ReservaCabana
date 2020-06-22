@@ -28,7 +28,7 @@ class PlanBusiness
 
         $temporadaData = new TemporadaData();
         $resultado['temporadas'] = $temporadaData->obtenerTemporadas();
-
+        $resultado['cabanas'] = $temporadaData->obtenerCabanas();
         $this->view->show("crearPlanView.php", $resultado);
     }
 
@@ -44,12 +44,9 @@ class PlanBusiness
     public function insertarPlan()
     {
         $cantidadDias = $_POST['plancantidaddias'];
-
+        $cabanaid = $_POST['cabanaid'];
         $planmonto = $_POST['planmonto'];
 
-        $plannumerocuotas = $_POST['plannumerocuotas'];
-
-        $montocuota = $planmonto / $plannumerocuotas;
 
         $restricciones = "";
 
@@ -65,10 +62,10 @@ class PlanBusiness
         $_SESSION['indice'] = 0;
 
         $planData = new PlanData();
-        $planData->insertarPlan($cantidadDias, $planmonto, $plannumerocuotas, $restricciones);
+        $planData->insertarPlan($cantidadDias, $planmonto, $restricciones,$cabanaid);
 
         $resultado['temporadas'] = $planData->obtenerTemporadas();
-
+        $resultado['cabanas'] = $planData->obtenerCabanas();
         $this->view->show("crearPlanView.php", $resultado);
     }
 
@@ -106,7 +103,6 @@ class PlanBusiness
     {
         $planData = new PlanData();
         $resultado['planes'] = $planData->obtenerPlanes();
-
         $contador = 0;
         $restriccionesArray = array();
 
@@ -138,8 +134,21 @@ class PlanBusiness
 
     public function adquirirPlan()
     {
-        $clienteid = $_POST['select_clientes'];
+        $numeroCuotas = $_POST['numerocuotas'];
+        $fechafin  = new DateTime($_POST['fechafin']);
+        $fechainicio  = new DateTime($_POST['fechainicio']);
+        $cantidadDiasEntreAbonos = $_POST['metodoCuotas'];
+        $cuotas = 0;
+        if ($numeroCuotas != null) {
+            $cuotas = $numeroCuotas;
+        } else {
 
+            $num = ($fechainicio->diff($fechafin))->days;
+            $cuotas = $num / $cantidadDiasEntreAbonos;
+        }
+
+
+        $clienteid = $_POST['select_clientes'];
         $planid =  $_POST['select_planes'];
 
         $planData = new PlanData();
@@ -147,15 +156,15 @@ class PlanBusiness
         $compraid = $planData->obtenerUltimaCompra($clienteid);
         $montoYCuotas = $planData->obtenerMontoYCuotas($planid);
 
-        $monto = (int) $montoYCuotas[0];
-        $cuotas = $montoYCuotas[1];
-        $fechaCobro = date("Y-m-d", strtotime(date('Y-m-d') . "+ 1 month"));
+        $monto = (int) $montoYCuotas[0] / $cuotas;
+
+        $fechaCobro = $_POST['fechainicio'];
 
         for ($i = 0; $i < $cuotas; $i++) {
 
             $planData->registrarAbonosPendientes($compraid, $fechaCobro, $monto);
 
-            $fechaCobro = date("Y-m-d", strtotime($fechaCobro . "+ 1 month"));
+            $fechaCobro = date("Y-m-d", strtotime($fechaCobro . "+ $cantidadDiasEntreAbonos days"));
         }
 
 
@@ -209,7 +218,10 @@ class PlanBusiness
 
         $planData = new PlanData();
         $resultado['abonos'] = $planData->obtenerTodosLosAbonos($clienteid);
-        $this->view->show("verAbonosCliente.php", $resultado);
+        if(count($resultado['abonos'])==0){
+            $this->view->show("sinPlan.php", $resultado);
+        }
+        else{$this->view->show("verAbonosCliente.php", $resultado);}
     }
 
 
@@ -223,6 +235,31 @@ class PlanBusiness
 
         $planData->abonarPlan($abonoplanid);
 
+        $resultado['clientes'] = $planData->obtenerClientes();
+
+
+        $this->view->show("seleccionarClienteVerAbonos.php", $resultado);
+    }
+
+    public function abonarPlanPersonalizado()
+    {
+        $planid = $_POST['planid'];
+        $montoDepositar = $_POST['monto'];
+        $montofijo = $_POST['montofijo'];
+        $planData = new PlanData();
+
+
+
+        if ($montoDepositar > $montofijo) {
+            $planData->abonarPlan($planid);
+            $excedente = $montoDepositar - $montofijo;
+            $compraID =  $planData->obtenerCompraId($planid);
+            $ultimoAbono = $planData->ultimoAbono($compraID);
+            $planData->abonarUltimoAbono($ultimoAbono, $excedente);
+        } else {
+            $faltante = $montofijo - $montoDepositar;
+            $planData->abonarMontoPlan($planid, $faltante);
+        }
         $resultado['clientes'] = $planData->obtenerClientes();
 
 
@@ -300,6 +337,15 @@ class PlanBusiness
 
         $planData = new PlanData();
         $resultado['abonos'] = $planData->obtenerTodosLosAbonos($clienteid);
-        $this->view->show("verMorosos.php", $resultado);
+        $num = count($resultado['abonos']);
+        $bandera = 0;
+        foreach ($resultado['abonos'] as $abonos){
+            if($abonos['fechacobro'] < date('Y-m-d')){$bandera++;};
+        }
+        if($num == 0 || $bandera<1){
+            $this->view->show("sinDeuda.php", $resultado);
+        }
+        else {
+            $this->view->show("verMorosos.php", $resultado);}
     }
 }

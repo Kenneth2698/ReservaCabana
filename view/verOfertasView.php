@@ -26,7 +26,7 @@
                 <td><?php echo $oferta['ofertanombre']?></td>
                 <td><?php echo $oferta['ofertafechainicio']?></td>
                 <td><?php echo $oferta['ofertafechafin']?></td>
-                <td><?php echo $oferta['ofertaprecio']?></td>
+                <td>₡<?php echo $oferta['ofertaprecio']?></td>
                 
    
 

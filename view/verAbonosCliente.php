@@ -17,11 +17,14 @@
                     <th>Fecha de abono</th>
                     <th>Monto</th>
                     <th>Estado</th>
-                    <th>Accion</th>
+                    <th>Cantidad a depositar</th>
+                    <th>Abonar</th>
+                    <th>Abonar todo</th>
 
                 </tr>
 
-                <?php $miArray=$vars['abonos']; foreach ($vars['abonos'] as $abonos) { ?>
+                <?php $miArray = $vars['abonos'];
+                foreach ($vars['abonos'] as $abonos) { ?>
 
                     <tr>
                         <td><?php echo $abonos['planid'] ?></td>
@@ -35,7 +38,7 @@
                             }
                             ?>
                         </td>
-                        <td><?php echo $abonos['monto'] ?></td>
+                        <td>₡<?php echo $abonos['monto'] ?></td>
                         <td>
                             <?php
                             if ($abonos['pagado'] == 1) {
@@ -50,10 +53,16 @@
                             ?>
                         </td>
                         <?php
-                            if ($abonos['pagado'] != 1) { ?>
-                                <td><a href="?controlador=Plan&accion=abonarPlan&planid=<?php echo $abonos['abonoplanid']?>" class="btn">Abonar</a></td>
-                           <?php } ?>
-                        
+                        if ($abonos['pagado'] != 1) { ?>
+                            <form action="?controlador=Plan&accion=abonarPlanPersonalizado" method="POST">
+                                <input id="planid" name="planid" type="hidden" value="<?php echo $abonos['abonoplanid'] ?>">
+                                <input id="montofijo" name="montofijo" type="hidden" value="<?php echo $abonos['monto'] ?>">
+                                <td>₡<input id="monto" name="monto"  type="number" value="<?php echo $abonos['monto'] ?>"></td>
+                                <td><button type="submit" >Abonar</button></td>
+                            </form>
+                            <td><a href="?controlador=Plan&accion=abonarPlan&planid=<?php echo $abonos['abonoplanid'] ?>" class="btn">Abonar todo</a></td>
+                        <?php } ?>
+
                     </tr>
 
 
@@ -61,7 +70,7 @@
                 } ?>
 
             </table>
-            <li><a href='?controlador=Plan&accion=abonarPlanRestante&abonos=<?php echo serialize($miArray)?>'>Aplicar por el plan</a></li>
+            <li><a href='?controlador=Plan&accion=abonarPlanRestante&abonos=<?php echo serialize($miArray) ?>'>Aplicar por el plan</a></li>
 
 
 
