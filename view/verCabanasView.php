@@ -40,28 +40,7 @@
 
                         <form method="POST" action="?controlador=Cabana&accion=eliminarCabana">
 
-                            <input type="hidden" value="<?php echo $cabana['cabanaid'] ?>" id="cabanaid" name="cabanaid">
-                            <!-- Modal-->
-                            <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="ModalLabel">Eliminar Cabaña</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            ¿Desea eliminar esta Cabaña?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <input value="<?php echo $cabana['cabanaid'] ?>" id="cabanaid" name="cabanaid">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <input type="submit">
 
                             <td> <button type="button" data-toggle="modal" data-target="#Modal">Eliminar</button></td>
 
