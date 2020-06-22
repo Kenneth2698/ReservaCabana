@@ -13,6 +13,17 @@
         <h2 class="title">Crear Plan</h2>
         <div class="container">
             <form method="POST" action="?controlador=Plan&accion=insertarPlan">
+            <label for="cabanaid">Elija una cabaña</label>
+                <br>
+                <select name="cabanaid" id="cabanaid">
+                    <?php
+                    foreach ($vars['cabanas'] as $row) { ?>
+                        <option value="<?php echo $row['cabanaid'] ?>"><?php echo $row['cabananombre'] ?></option>
+                    <?php
+
+                    } ?>
+                </select>
+                <br>
                 <label for="plancantidaddias">Cantidad de dias</label>
                 <br>
                 <input type="number" id="plancantidaddias" name="plancantidaddias">
@@ -20,11 +31,6 @@
                 <label for="planmonto">Monto total</label>
                 <br>
                 <input type="number" id="planmonto" name="planmonto">
-                <br>
-                <label for="plannumerocuotas">Cantidad de cuotas</label>
-                <br>
-                <input type="number" id="plannumerocuotas" name="plannumerocuotas">
-                <br>
                 <br>
                 <label for="restricciones">Restricciones</label>
                 <br>

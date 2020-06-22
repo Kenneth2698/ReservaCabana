@@ -18,6 +18,7 @@
       <a class="nav-item nav-link" href="?controlador=Plan&accion=mostrarAdquirirPlan">Adquirir plan</a>
       <a class="nav-item nav-link" href="?controlador=Plan&accion=seleccionarClienteVerAbonos">Abonos pendientes</a>
       <a class="nav-item nav-link" href="?controlador=Plan&accion=seleccionarClienteTransferir">Transferir plan</a>
+      <a class="nav-item nav-link" href="?controlador=Actividad&accion=mostrarCrearActividad">Proveedor de actividades</a>
     </div>
   </div>
 </nav>

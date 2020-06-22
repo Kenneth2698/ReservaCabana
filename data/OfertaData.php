@@ -68,5 +68,17 @@ class OfertaData
 
     }
 
+    public function obtenerActividadesInfo(){
+        $consulta = $this->db->prepare('SELECT a.actividadid, a.actividadnombre, a.actividadprecio, a.actividadimagen1,a.actividadimagen2, c.cabananombre FROM tbactividades a JOIN tbcabana c on a.cabanaid = c.cabanaid WHERE a.actividadestado = 1');
+        
+        
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->CloseCursor();
+
+        
+        return $resultado;
+    }
+
 }
 ?>

@@ -11,11 +11,11 @@ class PlanData
         $this->db = SPDO::singleton();
     } //constructor
 
-    public function insertarPlan($cantDias, $monto, $cantCuotas, $restricciones)
+    public function insertarPlan($cantDias, $monto, $restricciones,$cabanaid)
     {
 
         $consulta = $this->db->prepare("
-            INSERT INTO tbplan (plancantidaddias,planmonto,plannumerocuotas,planrestricciones)  VALUES ( $cantDias,$monto,$cantCuotas,'$restricciones');");
+            INSERT INTO tbplan (plancantidaddias,planmonto,planrestricciones,cabanaid)  VALUES ( $cantDias,$monto,'$restricciones',$cabanaid);");
 
 
         $consulta->execute();
@@ -40,7 +40,10 @@ class PlanData
     public function obtenerPlanes()
     {
 
-        $consulta = $this->db->prepare('SELECT planid,plancantidaddias,planmonto,plannumerocuotas,planrestricciones FROM tbplan');
+        $consulta = $this->db->prepare('SELECT p.planid,p.plancantidaddias,p.planmonto,p.planrestricciones,c.cabananombre as cabanaid
+                                   FROM tbplan p
+                                  join tbcabana c
+                                   on p.cabanaid = c.cabanaid');
 
 
         $consulta->execute();
@@ -110,7 +113,7 @@ class PlanData
     public function obtenerMontoYCuotas($planid)
     {
 
-        $consulta = $this->db->prepare("SELECT (planmonto/plannumerocuotas) AS montomensual,plannumerocuotas FROM tbplan WHERE planid = $planid");
+        $consulta = $this->db->prepare("SELECT planmonto AS montomensual FROM tbplan WHERE planid = $planid");
 
 
         $consulta->execute();
@@ -159,6 +162,17 @@ class PlanData
         $consulta->CloseCursor();
     }
 
+    public function abonarMontoPlan($abonoplanid, $faltante)
+    {
+        $consulta = $this->db->prepare("UPDATE tbabonoplan
+                                        SET monto = $faltante
+                                        WHERE abonoplanid = $abonoplanid
+                                        ");
+        $consulta->execute();
+        $consulta->CloseCursor();
+    }
+
+
 
     public function transferirPlan($cliente_nuevo, $compraplanid)
     {
@@ -170,6 +184,43 @@ class PlanData
         $consulta->CloseCursor();
     }
 
+    public function obtenerCompraId($planid)
+    {
+        $consulta = $this->db->prepare("SELECT compraplanid from tbabonoplan
+                                        WHERE abonoplanid = $planid");
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->CloseCursor();
+
+
+        return $resultado[0]['compraplanid'];
+    }
+
+
+    public function ultimoAbono($compraid)
+    {
+        $consulta = $this->db->prepare("SELECT abonoplanid AS ultimoabono FROM tbabonoplan
+                                            WHERE compraplanid = $compraid
+                                            ORDER BY abonoplanid DESC
+                                            LIMIT 1  ");
+
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->CloseCursor();
+
+
+        return $resultado[0]['ultimoabono'];
+    }
+
+   
+    public function abonarUltimoAbono($abonoplanid, $excedente)
+    {
+        $consulta = $this->db->prepare("UPDATE tbabonoplan
+                                        SET monto = monto - $excedente
+                                        WHERE abonoplanid = $abonoplanid");
+        $consulta->execute();
+        $consulta->CloseCursor();
+    }
 
     public function obtenerPlanesCliente($clienteid)
     {
@@ -180,6 +231,19 @@ class PlanData
         $consulta->execute();
         $resultado = $consulta->fetchAll();
         $consulta->CloseCursor();
+
+        return $resultado;
+    }
+    public function obtenerCabanas()
+    {
+
+        $consulta = $this->db->prepare('select cabanaid,cabananombre from tbcabana');
+
+
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->CloseCursor();
+
 
         return $resultado;
     }

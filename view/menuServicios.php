@@ -103,6 +103,11 @@
     <ul>
     <li><a href="?controlador=Plan&accion=seleccionarClienteVerMorosos">Ver Morosos</a></li>
     </ul>
+    <h2 class="title">CRUD Actividades extra</h2>
+    <ul>
+    <li><a href="?controlador=Actividad&accion=cargarAceptarRechazar">Aceptar/Rechazar</a></li>
+    <li><a href="?controlador=Actividad&accion=mostrarVerActividadesCabana">Ver actividades</a></li>
+    </ul>
     <h2 class="title">CERRAR SESION</h2>
     <ul>
     <li><a href="?controlador=Usuario&accion=cerrarSesion">Salir</a></li>
